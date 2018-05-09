@@ -20,10 +20,18 @@
         android:layout_below="@+id/Intro"
         android:text="@string/ButtonSecondAct" />
 
+
     <ImageView
+        android:id="@+id/Picture"
         android:layout_below="@+id/ButtonSecondActivity"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/question_mark" />
+    <Button
+        android:id="@+id/Quizz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Picture"
+        android:text="quizz"/>
 </RelativeLayout>

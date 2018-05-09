@@ -10,38 +10,51 @@
         android:id="@+id/QuizzQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/NOTWORKING"
-        />
+        android:text="@string/Problem"/>
 
     <Button
         android:id="@+id/Answer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/QuizzQuestion"/>
+        android:layout_below="@+id/QuizzQuestion"
+        android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Answer1"/>
+        android:layout_below="@+id/Answer1"
+        android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Answer2"/>
+        android:layout_below="@+id/Answer2"
+        android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Answer3"/>
+        android:layout_below="@+id/Answer3"
+        android:text="@string/Problem"/>
+
     <TextView
         android:id="@+id/Score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Answer4"/>
+android:layout_below="@+id/Answer4"
+        android:text="@string/Problem" />
     <TextView
+        android:id="@+id/ActualScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Score"/>
+        android:layout_below="@+id/Score"
+        android:text="@string/Problem"/>
+    <Button
+        android:id="@+id/ButtonLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="pressToLoad"
+        android:layout_below="@+id/ActualScore"/>
 
 
 

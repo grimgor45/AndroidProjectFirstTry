@@ -6,5 +6,5 @@
 
     <string name="ButtonSecondAct">SecondAct</string>
 
-    <string name="NOTWORKING">Application not working you should not see this line</string>
+    <string name="Problem">Application not working you should not see this line</string>
 </resources>
