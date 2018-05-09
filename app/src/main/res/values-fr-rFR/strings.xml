@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="Introduction">Ceci est une patite intro pour l'app</string>
+    <string name="ButtonSecondAct">SecondAct</string>
+</resources>
