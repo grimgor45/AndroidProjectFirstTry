@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        GetBiersService.startActionGetAllBiers(MainActivity.this, null);
+
 
         final Intent secAct = new Intent(this, SecondActivity.class);
 
@@ -37,5 +39,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(aQuizz);
             }
         });
+
+        final Intent BiersList = new Intent(this, BiersList.class);
+
+        Button BiersListButton = (Button)findViewById(R.id.BiersList);
+        BiersListButton.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            startActivity(BiersList);
+            }
+        });
+
+
     }
 }

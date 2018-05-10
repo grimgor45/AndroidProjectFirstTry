@@ -4,4 +4,6 @@
     <string name="Introduction">Ceci est une patite intro pour l'app</string>
     <string name="ButtonSecondAct">SecondAct</string>
     <string name="Problem">Application not working you should not see this line</string>
+    <string name="ButtonBiersList">bièresList</string>
+
 </resources>

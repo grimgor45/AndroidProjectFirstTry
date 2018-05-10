@@ -3,6 +3,7 @@ package projetmobile.esiea.quiz;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.io.File;
@@ -84,6 +85,8 @@ public class GetBiersService extends IntentService {
 
             e.printStackTrace();
         }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BiersList.BIERS_UPDATE));
+
     }
 
     private void copyInputStreamToFile(InputStream is, File file){

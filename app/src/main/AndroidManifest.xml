@@ -23,7 +23,9 @@
 
         <service
             android:name=".GetBiersService"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".BiersList"></activity>
     </application>
 
 </manifest>

@@ -34,4 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Picture"
         android:text="quizz"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BiersList"
+        android:text="@string/ButtonBiersList"
+        android:layout_below="@+id/Quizz"/>
 </RelativeLayout>
