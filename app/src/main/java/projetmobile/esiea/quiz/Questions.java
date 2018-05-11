@@ -53,6 +53,7 @@ public class Questions extends AppCompatActivity {
                 }
             }
         });
+
         Button A1 = (Button)findViewById(R.id.Answer1);
         A1.setOnClickListener(new View.OnClickListener() {
             @Override
