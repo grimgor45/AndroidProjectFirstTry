@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="projetmobile.esiea.quiz.Questions">
+
+    <TextView
+        android:id="@+id/QuizzQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Problem"/>
+
+    <Button
+        android:id="@+id/Answer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/QuizzQuestion"
+        android:text="@string/Problem"/>
+    <Button
+        android:id="@+id/Answer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Answer1"
+        android:text="@string/Problem"/>
+    <Button
+        android:id="@+id/Answer3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Answer2"
+        android:text="@string/Problem"/>
+    <Button
+        android:id="@+id/Answer4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Answer3"
+        android:text="@string/Problem"/>
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:layout_below="@+id/Answer4"
+        android:text="@string/Problem" />
+    <TextView
+        android:id="@+id/ActualScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Score"
+        android:text="@string/Problem"/>
+    <Button
+        android:id="@+id/ButtonLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="pressToLoad"
+        android:layout_below="@+id/ActualScore"/>
+
+
+
+</RelativeLayout>
