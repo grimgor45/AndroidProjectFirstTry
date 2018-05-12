@@ -55,6 +55,12 @@ android:layout_below="@+id/Answer4"
         android:layout_height="wrap_content"
         android:text="pressToLoad"
         android:layout_below="@+id/ActualScore"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Buttonquit"
+        android:text="Quit"
+        android:layout_below="@+id/ButtonLoad"/>
 
 
 
