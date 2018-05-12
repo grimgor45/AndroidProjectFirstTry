@@ -30,11 +30,13 @@ public class AnswerList {
 
 
         try {
-             A1 = list.getJSONObject(rand.nextInt(20));
-             A2 = list.getJSONObject(rand.nextInt(20));
-             A3 = list.getJSONObject(rand.nextInt(20));
-             A4 = list.getJSONObject(rand.nextInt(20));
+            int[] ans = createRandomDiffIntList(4,list.length());
+             A1 = list.getJSONObject(ans[0]);
+             A2 = list.getJSONObject(ans[1]);
+             A3 = list.getJSONObject(ans[2]);
+             A4 = list.getJSONObject(ans[3]);
             objList = new JSONObject[]{A1,A2,A3,A4};
+
             correct = rand.nextInt(4)+1;
 
         }
@@ -48,16 +50,38 @@ public class AnswerList {
         }
         else{
             try {
-            A1 = list.getJSONObject(rand.nextInt(20));
-            A2 = list.getJSONObject(rand.nextInt(20));
-            A3 = list.getJSONObject(rand.nextInt(20));
-            A4 = list.getJSONObject(rand.nextInt(20));
-            objList = new JSONObject[]{A1,A2,A3,A4};
+                int[] ans = createRandomDiffIntList(4, list.length());
+                A1 = list.getJSONObject(ans[0]);
+                A2 = list.getJSONObject(ans[1]);
+                A3 = list.getJSONObject(ans[2]);
+                A4 = list.getJSONObject(ans[3]);
+                objList = new JSONObject[]{A1,A2,A3,A4};
             correct = rand.nextInt(4)+1;
             }
             catch(JSONException e)
             { }
         }
         return instance;
+    }
+
+    private static int[] createRandomDiffIntList(int size, int max){
+        Random random = new Random();
+        int[] list = new int[size];
+        for (int i = 0; i < size; i++)
+        {
+            list[i]=random.nextInt(max);
+            while (true){
+                for (int j = 0; j < i; j++)
+                {
+                    if (list[i]==list[j])
+                    {
+                        list[i]=random.nextInt();
+                    }
+                }
+                break;
+            }
+        }
+        return list;
+
     }
 }

@@ -42,7 +42,7 @@ public class Questions extends AppCompatActivity {
                 aL = AnswerList.getInstance(list);
 
                 try {
-                    ((TextView)findViewById(R.id.QuizzQuestion)).setText(aL.objList[aL.correct-1].getString("name"));
+                    ((TextView)findViewById(R.id.QuizzQuestion)).setText("Description de la bière "+aL.objList[aL.correct-1].getString("description"));
                     ((Button)findViewById(R.id.Answer1)).setText(aL.objList[0].getString("name"));
                     ((Button)findViewById(R.id.Answer2)).setText(aL.objList[1].getString("name"));
                     ((Button)findViewById(R.id.Answer3)).setText(aL.objList[2].getString("name"));
