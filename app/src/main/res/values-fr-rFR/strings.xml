@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Quiz</string>
-    <string name="Introduction">Ceci est une patite intro pour l'app</string>
-    <string name="ButtonSecondAct">SecondAct</string>
+    <string name="app_name">Le Quiz Pokebière</string>
+    <string name="Introduction">Le test ultime de votre connaissance !</string>
+    <string name="ButtonSecondAct">JOUER !</string>
     <string name="Problem">Application not working you should not see this line</string>
     <string name="ButtonBiersList">bièresList</string>
+    <string name="pokemon">Pokémons</string>
+    <string name="beers">Bières</string>
+    <string name="PickTheme">Choisissez le thème de votre quiz</string>
 
 </resources>
