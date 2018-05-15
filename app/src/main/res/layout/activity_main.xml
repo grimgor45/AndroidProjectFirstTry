@@ -1,67 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:id="@+id/mainMenuScrollView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:layout_centerHorizontal="true"
-        android:textSize="30dp"
-        android:textColor="@color/colorPrimary"/>
+                <TextView
+                    android:id="@+id/Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="30dp"
+                    android:textColor="@color/colorPrimary"/>
 
-    <TextView
-        android:id="@+id/Intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Picture"
-        android:text="@string/Introduction"
-        android:textSize="20dp"
-        android:textColor="@color/BlackRed"
-        android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:id="@+id/Intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Picture"
+                    android:text="@string/Introduction"
+                    android:textSize="20dp"
+                    android:textColor="@color/BlackRed"
+                    android:layout_centerHorizontal="true"/>
 
-    <Button
-        android:id="@+id/ButtonSecondActivity"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/Intro"
-        android:background="@color/HeavyRed"
-        android:text="@string/ButtonSecondAct" />
+                <Button
+                    android:id="@+id/ButtonSecondActivity"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/Intro"
+                    android:background="@color/HeavyRed"
+                    android:text="@string/ButtonSecondAct" />
 
 
-    <ImageView
-        android:id="@+id/Picture"
-        android:layout_width="390dp"
-        android:layout_height="350dp"
-        android:layout_below="@+id/Name"
-        android:src="@mipmap/quiz_iconn" />
+                <ImageView
+                    android:id="@+id/Picture"
+                    android:layout_width="390dp"
+                    android:layout_height="350dp"
+                    android:layout_below="@+id/Name"
+                    android:src="@mipmap/quiz_iconn" />
 
-    <Button
-        android:id="@+id/Quizz"
+                <Button
+                    android:id="@+id/Quizz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ButtonSecondActivity"
+                    android:text="quizz"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/BiersList"
+                    android:text="@string/ButtonBiersList"
+                    android:layout_below="@+id/Quizz"/>
+
+
+
+
+            </RelativeLayout>
+        </ScrollView>
+    <RelativeLayout android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ButtonSecondActivity"
-        android:text="quizz"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BiersList"
-        android:text="@string/ButtonBiersList"
-        android:layout_below="@+id/Quizz"/>
-
-    <android.support.v7.widget.Toolbar
+        android:layout_alignParentBottom="true"
+        >    <android.support.v7.widget.Toolbar
 
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -70,9 +83,6 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" /></RelativeLayout>
 
 </RelativeLayout>
-</ScrollView>
-

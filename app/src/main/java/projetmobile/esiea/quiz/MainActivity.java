@@ -1,19 +1,26 @@
 package projetmobile.esiea.quiz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     int a = 121;
     String b = ((Integer)a).toString();
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ScrollView myScrollView = (ScrollView) findViewById(R.id.mainMenuScrollView);
+        myScrollView.getLayoutParams().height = ((int) Toolbox.ScHgt(this)-250);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
