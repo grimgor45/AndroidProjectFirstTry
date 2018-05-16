@@ -28,6 +28,8 @@ public class Questions extends AppCompatActivity {
     public int score;
     public int actualScore;
     JSONArray list;
+    private final String JSONARRAY_NAME =  "bieres.json";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +41,21 @@ public class Questions extends AppCompatActivity {
 
         GetBiersService.startActionGetAllBiers(Questions.this, null);
 
-        list = getBiersFromFile();
+        list = Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME);
 
-        changeAnswerList(list);
-
+        if (list.length()>=4) {
+            changeAnswerList(list);
+        }
 
         Button loadButton = (Button) findViewById(R.id.ButtonLoad);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONArray list = getBiersFromFile();
+                JSONArray list = Toolbox.getJSONArrayFromFile(Questions.this, JSONARRAY_NAME);
 
+                if(list.length()>=4){
                 changeAnswerList(list);
+                }
             }
         });
 
@@ -176,25 +181,11 @@ public class Questions extends AppCompatActivity {
     }
 
 
-        public JSONArray getBiersFromFile(){
-            try{
-                InputStream is = new FileInputStream(getCacheDir()+"/"+"bieres.json");
-                byte[] buffer = new byte[is.available()];
-                is.read(buffer);
-                is.close();
-                return new JSONArray(new String (buffer, "UTF-8"));
-                }catch (IOException e){
-                    return new JSONArray();
-                }catch (JSONException e){
-                    return new JSONArray();
-                }
-            }
-
     private void changeAnswerList(JSONArray list){
         aL = AnswerList.getInstance(list);
 
         try {
-            ((TextView)findViewById(R.id.QuizzQuestion)).setText("Description de la bière "+aL.objList[aL.correct-1].getString("description"));
+            ((TextView)findViewById(R.id.QuizzQuestionText)).setText("Description de la bière "+aL.objList[aL.correct-1].getString("description"));
             ((Button)findViewById(R.id.Answer1)).setText(aL.objList[0].getString("name"));
             ((Button)findViewById(R.id.Answer2)).setText(aL.objList[1].getString("name"));
             ((Button)findViewById(R.id.Answer3)).setText(aL.objList[2].getString("name"));

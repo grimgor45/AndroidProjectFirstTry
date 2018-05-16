@@ -40,7 +40,7 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder> 
 
         try{
             JSONObject jo = biers.getJSONObject(position);
-            String name = jo.getString("name")+" créé dans "+jo.getString("country_id");
+            String name = jo.getString("name")+" Description : "+jo.getString("description");
             holder.name.setText(name);
         }catch (JSONException e){
             e.printStackTrace();

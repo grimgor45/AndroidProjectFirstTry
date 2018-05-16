@@ -66,15 +66,22 @@ public class GetBiersService extends IntentService {
         // TODO: Handle action Foo
         Log.d("MyService", "Thread service name : "+ Thread.currentThread().getName());
         URL url = null;
+        boolean downloaded = false;
         try{
             url = new URL("http://binouze.fabrigli.fr/bieres.json");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.connect();
+
             if (HttpURLConnection.HTTP_OK == con.getResponseCode()){
                 copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "bieres.json"));
                 Log.d("Biers", "Downloaded");
+                downloaded = true;
             }
+            else{
+                downloaded = false;
+            }
+
         }
         catch(MalformedURLException e){
 
@@ -85,8 +92,12 @@ public class GetBiersService extends IntentService {
 
             e.printStackTrace();
         }
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BiersList.BIERS_UPDATE));
+        if (downloaded == true) {
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BiersList.BIERS_UPDATE));
+        }
+        else{
 
+        }
     }
 
     private void copyInputStreamToFile(InputStream is, File file){
