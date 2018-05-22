@@ -21,8 +21,12 @@ public class Questions extends AppCompatActivity {
     public AnswerList aL;
     public int score;
     public int actualScore;
-    JSONArray list;
-    private final String JSONARRAY_NAME =  "bieres.json";
+    JSONArray listBeer;
+    JSONArray listPoke;
+    private final String JSONARRAY_NAME_BEER =  "bieres.json";
+    private final String JSONARRAY_NAME_POKE =  "poke.json";
+    public int typequizz;
+    public String valueQuestion = "name";
 
 
     @Override
@@ -33,26 +37,48 @@ public class Questions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
-        GetBiersService.startActionGetAllBiers(Questions.this, null);
-
-        list = Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME);
-
         int scrollViewHeight = (int)Toolbox.ScHgt(this)/4;
         ScrollView scrollView = (ScrollView) findViewById(R.id.ScrollViewDescriptionBeer);
         scrollView.getLayoutParams().height = scrollViewHeight;
 
-        if (list.length()>=4) {
-            changeAnswerList(list);
+
+        typequizz = getIntent().getIntExtra("TYPEQUIZZ",0);
+        if(typequizz == 0) {
+            GetBiersService.startActionGetAllBiers(Questions.this);
+
+
+            listBeer = Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME_BEER);
+            if (listBeer.length()>=4) {
+                changeAnswerList(listBeer, "description");
+            }
         }
+        if(typequizz == 1) {
+            Log.d("hey", "alizjdoiqshdjkskjjs");
+            GetPokeService.startActionGetAllPok(Questions.this);
+
+            Log.d("IT", "works");
+            listPoke = Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME_POKE);
+            if (listPoke.length()>=4) {
+                changeAnswerList(listPoke, "description");
+            }
+        }
+
+
+
 
         Button loadButton = (Button) findViewById(R.id.ButtonLoad);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONArray list = Toolbox.getJSONArrayFromFile(Questions.this, JSONARRAY_NAME);
-
-                if(list.length()>=4){
-                changeAnswerList(list);
+                if (typequizz == 0) {
+                    if (listBeer.length() >= 4) {
+                        changeAnswerList(listBeer, "description");
+                    }
+                }
+                if (typequizz == 1){
+                    if(listPoke.length()>=4){
+                        changeAnswerList(listPoke, valueQuestion);
+                    }
                 }
             }
         });
@@ -61,103 +87,32 @@ public class Questions extends AppCompatActivity {
         A1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (aL.correct ==1)
-                {
-                    score++;
-                    Context context = getApplicationContext();
-                    CharSequence text = "Correct Answer";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                else{
-                    Context context = getApplicationContext();
-                    String goodAnswer = "";
-                    try {
-                        goodAnswer = aL.objList[aL.correct].getString("name");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    String text = "Wrong answer"+" right was "+goodAnswer;
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                actualScore++;
-                ((TextView)findViewById(R.id.Score)).setText(((Integer)score).toString());
-                ((TextView)findViewById(R.id.ActualScore)).setText(((Integer)actualScore).toString());
-                changeAnswerList(list);
-
-
-
+                manageAnswerButton(1);
             }
         });
         Button A2 = (Button)findViewById(R.id.Answer2);
         A2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (aL.correct ==2)
-                {
-                    score++;
-                    Context context = getApplicationContext();
-                    CharSequence text = "Correct Answer";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                actualScore++;
-                ((TextView)findViewById(R.id.Score)).setText(((Integer)score).toString());
-                ((TextView)findViewById(R.id.ActualScore)).setText(((Integer)actualScore).toString());
-                changeAnswerList(list);
-
-
+                manageAnswerButton(2);
             }
         });
         Button A3 = (Button)findViewById(R.id.Answer3);
         A3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (aL.correct ==3)
-                {
-                    score++;
-                    Context context = getApplicationContext();
-                    CharSequence text = "Correct Answer";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                actualScore++;
-                ((TextView)findViewById(R.id.Score)).setText(((Integer)score).toString());
-                ((TextView)findViewById(R.id.ActualScore)).setText(((Integer)actualScore).toString());
-                changeAnswerList(list);
-
-
+                manageAnswerButton(3);
             }
         });
         Button A4 = (Button)findViewById(R.id.Answer4);
         A4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (aL.correct ==4)
-                {
-                    score++;
-                    Context context = getApplicationContext();
-                    CharSequence text = "Correct Answer";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                actualScore++;
-                ((TextView)findViewById(R.id.Score)).setText(((Integer)score).toString());
-                ((TextView)findViewById(R.id.ActualScore)).setText(((Integer)actualScore).toString());
-                changeAnswerList(list);
-
+                manageAnswerButton(4);
             }
         });
+
+
 
         Button quit = (Button)findViewById(R.id.Buttonquit);
         quit.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +126,6 @@ public class Questions extends AppCompatActivity {
     }
 
     private AlertDialog.Builder TrulyExit(){
-        Context context = getApplicationContext();
         final Intent quitToMainAct = new Intent(this, MainActivity.class);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Add the buttons
@@ -191,12 +145,46 @@ public class Questions extends AppCompatActivity {
 
     }
 
+    private void manageAnswerButton(int id){
+        if (aL.correct ==id)
+        {
+            score++;
+            Context context = getApplicationContext();
+            CharSequence text = "Correct Answer";
+            int duration = Toast.LENGTH_SHORT;
 
-    private void changeAnswerList(JSONArray list){
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+        else{
+            Context context = getApplicationContext();
+            String goodAnswer = "";
+            try {
+                goodAnswer = aL.objList[aL.correct-1].getString("name");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String text = "Wrong answer"+" right was "+goodAnswer;
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+        actualScore++;
+        ((TextView)findViewById(R.id.Score)).setText(((Integer)score).toString());
+        ((TextView)findViewById(R.id.ActualScore)).setText(((Integer)actualScore).toString());
+        if (typequizz == 0) {
+            changeAnswerList(listBeer, "description");
+        }
+        if(typequizz == 1){
+            changeAnswerList(listPoke, valueQuestion);
+        }
+    }
+
+    private void changeAnswerList(JSONArray list, String JSONValueQestion){
         aL = AnswerList.getInstance(list);
 
         try {
-            ((TextView)findViewById(R.id.QuizzQuestionText)).setText("Description de la bière "+aL.objList[aL.correct-1].getString("description"));
+            ((TextView)findViewById(R.id.QuizzQuestionText)).setText("Description de la bière "+aL.objList[aL.correct-1].getString(JSONValueQestion));
             ((Button)findViewById(R.id.Answer1)).setText(aL.objList[0].getString("name"));
             ((Button)findViewById(R.id.Answer2)).setText(aL.objList[1].getString("name"));
             ((Button)findViewById(R.id.Answer3)).setText(aL.objList[2].getString("name"));

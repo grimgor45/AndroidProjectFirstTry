@@ -21,25 +21,25 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BiersList extends AppCompatActivity {
+public class PokeList extends AppCompatActivity {
 
     RecyclerView rv;;
 
-    private final String JSONARRAY_NAME =  "bieres.json";
+    private final String JSONARRAY_NAME =  "poke.json";
 
-    public static final String BIERS_UPDATE = "projetmobile.esiea.quiz.BIERS_UPDATE";
+    public static final String POKE_UPDATE= "projetmobile.esiea.quiz.POKE_UPDATE";
 
     private String correctDownloadToast = "Correctly downloaded";
     private String incorrectDownloadToast = "Download Failed please enable wifi";
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
 
-    public class BierUpdate extends BroadcastReceiver {
+    public class PokeUpdate extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            rv = findViewById(R.id.rv_biers);
+            rv = findViewById(R.id.rv_poke);
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
-                ((BiersAdapter) rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFile(context, JSONARRAY_NAME));
+                ((PokeAdapter) rv.getAdapter()).setNewPoke(Toolbox.getJSONArrayFromFile(context, JSONARRAY_NAME));
                 Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
                 toast.show();
                 Log.d("Download", "finished");
@@ -61,16 +61,16 @@ public class BiersList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_biers_list);
+        setContentView(R.layout.activity_poke_list);
 
-        GetBiersService.startActionGetAllBiers(BiersList.this);
+        GetPokeService.startActionGetAllPok(PokeList.this);
 
-        rv = findViewById(R.id.rv_biers);
+        rv = findViewById(R.id.rv_poke);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.setAdapter(new BiersAdapter(Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME)));
+        rv.setAdapter(new PokeAdapter(Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME)));
 
-        IntentFilter intentFilter = new IntentFilter(BIERS_UPDATE);
-        LocalBroadcastManager.getInstance(this).registerReceiver(new BierUpdate(),intentFilter);
+        IntentFilter intentFilter = new IntentFilter(POKE_UPDATE);
+        LocalBroadcastManager.getInstance(this).registerReceiver(new PokeUpdate(),intentFilter);
     }
 
 

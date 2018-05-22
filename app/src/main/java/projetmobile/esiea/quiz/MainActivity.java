@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        GetBiersService.startActionGetAllBiers(MainActivity.this, null);
+        GetBiersService.startActionGetAllBiers(MainActivity.this);
 
         final Intent secAct = new Intent(this, SecondActivity.class);
 
@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         Quizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aQuizz.putExtra("TYPEQUIZZ", 0);
                 startActivity(aQuizz);
             }
         });
@@ -120,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Intent PokeList = new Intent(this, PokeList.class);
 
+        Button PokeListButton = (Button)findViewById(R.id.PokeList);
+        PokeListButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(PokeList);
+            }
+        });
     }
 }

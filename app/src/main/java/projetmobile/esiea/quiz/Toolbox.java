@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 
 import org.json.JSONArray;
@@ -29,10 +30,18 @@ public class Toolbox {
     public static JSONArray getJSONArrayFromFile(Context context, String string){
         try{
             InputStream is = new FileInputStream(context.getCacheDir()+"/"+string);
+            Log.d("ho1","hey1");
             byte[] buffer = new byte[is.available()];
+            Log.d("ho2",String.valueOf(is.available()));
+            Log.d("ho2",String.valueOf(buffer.length));
             is.read(buffer);
+            Log.d("ho3","hey3");
             is.close();
-            return new JSONArray(new String (buffer, "UTF-8"));
+            Log.d("ho4","hey4");
+            JSONArray ja = new JSONArray(new String (buffer, "UTF-8"));
+            Log.d("ho5","hey5");
+
+            return ja;
         }catch (IOException e){
             return new JSONArray();
         }catch (JSONException e){
