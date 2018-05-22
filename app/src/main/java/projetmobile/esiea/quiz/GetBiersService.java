@@ -92,12 +92,9 @@ public class GetBiersService extends IntentService {
 
             e.printStackTrace();
         }
-        if (downloaded == true) {
-            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BiersList.BIERS_UPDATE));
-        }
-        else{
-
-        }
+        Intent broadcastedIntent=new Intent(BiersList.BIERS_UPDATE);
+        broadcastedIntent.putExtra("VALUE", downloaded);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
     }
 
     private void copyInputStreamToFile(InputStream is, File file){

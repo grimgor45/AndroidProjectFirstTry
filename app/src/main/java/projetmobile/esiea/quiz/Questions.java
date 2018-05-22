@@ -6,21 +6,15 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Questions extends AppCompatActivity {
 
@@ -42,6 +36,10 @@ public class Questions extends AppCompatActivity {
         GetBiersService.startActionGetAllBiers(Questions.this, null);
 
         list = Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME);
+
+        int scrollViewHeight = (int)Toolbox.ScHgt(this)/4;
+        ScrollView scrollView = (ScrollView) findViewById(R.id.ScrollViewDescriptionBeer);
+        scrollView.getLayoutParams().height = scrollViewHeight;
 
         if (list.length()>=4) {
             changeAnswerList(list);
@@ -70,6 +68,19 @@ public class Questions extends AppCompatActivity {
                     CharSequence text = "Correct Answer";
                     int duration = Toast.LENGTH_SHORT;
 
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+                else{
+                    Context context = getApplicationContext();
+                    String goodAnswer = "";
+                    try {
+                        goodAnswer = aL.objList[aL.correct].getString("name");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String text = "Wrong answer"+" right was "+goodAnswer;
+                    int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
@@ -161,14 +172,14 @@ public class Questions extends AppCompatActivity {
 
     private AlertDialog.Builder TrulyExit(){
         Context context = getApplicationContext();
-
+        final Intent quitToMainAct = new Intent(this, MainActivity.class);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Add the buttons
         builder.setMessage("This will end the activity");
 
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
+                startActivity(quitToMainAct);
             }
         });
         builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {

@@ -30,16 +30,30 @@ public class BiersList extends AppCompatActivity {
     public static final String BIERS_UPDATE = "projetmobile.esiea.quiz.BIERS_UPDATE";
 
     private String correctDownloadToast = "Correctly downloaded";
+    private String incorrectDownloadToast = "Download Failed please enable wifi";
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
 
     public class BierUpdate extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             rv = findViewById(R.id.rv_biers);
-            ((BiersAdapter)rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFile(context, JSONARRAY_NAME));
-            Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-            toast.show();
-            Log.d("Download","finished"); }
+            boolean downloaded = intent.getBooleanExtra("VALUE", false);
+            if (downloaded) {
+                ((BiersAdapter) rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFile(context, JSONARRAY_NAME));
+                Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
+                toast.show();
+                Log.d("Download", "finished");
+
+                Toolbox.createShowNotificationDownload(getApplicationContext());
+            }
+            else{
+                Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
+                toast.show();
+                Log.d("Download", "failed");
+
+            }
+        }
+
     }
 
 

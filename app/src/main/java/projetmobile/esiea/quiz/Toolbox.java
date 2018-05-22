@@ -1,6 +1,10 @@
 package projetmobile.esiea.quiz;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -74,4 +78,26 @@ public class Toolbox {
         // The directory is now empty so delete it
         return dir.delete();
     }
+
+    //Notification
+    public static void createShowNotificationDownload(Context context) {
+
+        Intent intent = new Intent(context, BiersList.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_arrow_down)
+                .setContentTitle("le DL est finit")
+                .setContentText("show downloaded list")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(MainActivity.notificationId, mBuilder.build());
+    }
+
 }
