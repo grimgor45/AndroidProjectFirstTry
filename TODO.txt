@@ -1,0 +1,12 @@
+DONE change scrollview question activity to match size screen NOT DONE (Replacement with fixed size)
+DONE toast download/update failed
+DONE notification
+DONE finire boite de dialogue quit questions
+
+return button on evry activity
+appel appli externe
+pokemon quizz
+pokemon recyclableview
+working rotation main activity
+actionbar buttons
+rename strings / colors
