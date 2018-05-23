@@ -1,0 +1,11 @@
+DONE change scrollview question activity to match size screen NOT DONE (Replacement with fixed size)
+DONE toast download/update failed
+DONE notification
+DONE finire boite de dialogue quit questions
+DONE pokemon quizz
+DONE pokemon recyclableview
+
+return button on evry activity/ actionbar buttons
+appel appli externe(Google map beer and google map pokemon)
+working rotation main activity
+rename strings / colors for marvelous app

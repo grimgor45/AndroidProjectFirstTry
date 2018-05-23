@@ -22,20 +22,20 @@ import java.net.URL;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class GetBiersService extends IntentService {
+public class GetPokeService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_GET_ALL_BIERS = "projetmobile.esiea.quiz.action.BIERS";
+    private static final String ACTION_GET_ALL_POKE = "projetmobile.esiea.quiz.action.FOO";
 
 
-    public GetBiersService() {
-        super("GetBiersService");
+    public GetPokeService() {
+        super("GetPokeService");
     }
 
 
-    public static void startActionGetAllBiers(Context context) {
-        Intent intent = new Intent(context, GetBiersService.class);
-        intent.setAction(ACTION_GET_ALL_BIERS);
+    public static void startActionGetAllPok(Context context) {
+        Intent intent = new Intent(context, GetPokeService.class);
+        intent.setAction(ACTION_GET_ALL_POKE);
         context.startService(intent);
     }
 
@@ -43,7 +43,7 @@ public class GetBiersService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();
-            if (ACTION_GET_ALL_BIERS.equals(action)) {
+            if (ACTION_GET_ALL_POKE.equals(action)) {
                 handleActionFoo(null);
             }
         }
@@ -59,18 +59,20 @@ public class GetBiersService extends IntentService {
         URL url = null;
         boolean downloaded = false;
         try{
-            url = new URL("http://binouze.fabrigli.fr/bieres.json");
+            url = new URL("https://pokeapi.co/api/v2/pokemon.json/?limit=1000");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.connect();
-
+            Log.d("downloading","poke");
             if (HttpURLConnection.HTTP_OK == con.getResponseCode()){
-                copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "bieres.json"));
-                Log.d("Biers", "Downloaded");
+                copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "poke.json"));
+                Log.d("Poke", "Downloaded");
                 downloaded = true;
             }
             else{
                 downloaded = false;
+                Log.d("downloading","failed");
+
             }
 
         }
@@ -83,7 +85,7 @@ public class GetBiersService extends IntentService {
 
             e.printStackTrace();
         }
-        Intent broadcastedIntent=new Intent(BiersList.BIERS_UPDATE);
+        Intent broadcastedIntent=new Intent(PokeList.POKE_UPDATE);
         broadcastedIntent.putExtra("VALUE", downloaded);
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
     }
@@ -94,7 +96,7 @@ public class GetBiersService extends IntentService {
             byte[] bit = new byte [1024];
             int len;
             while ((len=is.read(bit))>0){
-    out.write(bit,0,len);
+                out.write(bit,0,len);
             }
         }
         catch(IOException e){

@@ -70,6 +70,12 @@
                     android:text="@string/ButtonBiersList"
                     android:layout_below="@+id/Quizz"/>
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/PokeList"
+                    android:text="PokeList"
+                    android:layout_below="@+id/BiersList"/>
 
 
 

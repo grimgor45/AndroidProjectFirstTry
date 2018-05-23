@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context="projetmobile.esiea.quiz.Questions">
 
-    <ScrollView         android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:id="@+id/QuizzQuestion">
+        android:id="@+id/ScrollViewDescriptionBeer">
 
     <TextView
         android:id="@+id/QuizzQuestionText"
@@ -18,11 +19,11 @@
     </ScrollView>
 
 
-<Button
+    <Button
         android:id="@+id/Answer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/QuizzQuestion"
+        android:layout_below="@+id/ScrollViewDescriptionBeer"
         android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer2"

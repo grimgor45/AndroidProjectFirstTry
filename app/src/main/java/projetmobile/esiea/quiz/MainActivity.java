@@ -1,7 +1,13 @@
 package projetmobile.esiea.quiz;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +25,30 @@ public class MainActivity extends AppCompatActivity {
 
     int a = 121;
     String b = ((Integer)a).toString();
+    public static String CHANNEL_ID = "projetmobile.esiea.quiz.NOTIFICATION";
+    public static int notificationId = 42;
+
+    //Channel
+    //code taken from https://developer.android.com/training/notify-user/build-notification
+    public void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "channel";
+            String description = "bestChannel ever";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
+
+
 
 
 
@@ -47,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        createNotificationChannel();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -56,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        GetBiersService.startActionGetAllBiers(MainActivity.this, null);
-
+        GetBiersService.startActionGetAllBiers(MainActivity.this);
 
         final Intent secAct = new Intent(this, SecondActivity.class);
 
@@ -75,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         Quizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aQuizz.putExtra("TYPEQUIZZ", 1);
                 startActivity(aQuizz);
             }
         });
@@ -89,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Intent PokeList = new Intent(this, PokeList.class);
 
+        Button PokeListButton = (Button)findViewById(R.id.PokeList);
+        PokeListButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(PokeList);
+            }
+        });
     }
 }
