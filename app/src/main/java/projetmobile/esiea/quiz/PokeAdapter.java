@@ -41,7 +41,7 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
 
         try{
             JSONObject jo = poke.getJSONObject(position);
-            String name = jo.getString("name")+" height : "+jo.getString("height");
+            String name = jo.getString("name")+" name : "+jo.getString("name");
             holder.name.setText(name);
         }catch (JSONException e){
             e.printStackTrace();

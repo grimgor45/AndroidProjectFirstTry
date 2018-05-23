@@ -47,7 +47,7 @@ public class Questions extends AppCompatActivity {
             GetBiersService.startActionGetAllBiers(Questions.this);
 
 
-            listBeer = Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME_BEER);
+            listBeer = Toolbox.getJSONArrayFromFileBeer(this, JSONARRAY_NAME_BEER);
             if (listBeer.length()>=4) {
                 changeAnswerList(listBeer, "description");
             }
@@ -57,7 +57,7 @@ public class Questions extends AppCompatActivity {
             GetPokeService.startActionGetAllPok(Questions.this);
 
             Log.d("IT", "works");
-            listPoke = Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME_POKE);
+            listPoke = Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME_POKE);
             if (listPoke.length()>=4) {
                 changeAnswerList(listPoke, "description");
             }

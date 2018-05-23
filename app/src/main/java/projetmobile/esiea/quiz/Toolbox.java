@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +28,7 @@ public class Toolbox {
         return height;
     }
 
-    public static JSONArray getJSONArrayFromFile(Context context, String string){
+    public static JSONArray getJSONArrayFromFilePoke(Context context, String string){
         try{
             InputStream is = new FileInputStream(context.getCacheDir()+"/"+string);
             Log.d("ho1","hey1");
@@ -38,7 +39,11 @@ public class Toolbox {
             Log.d("ho3","hey3");
             is.close();
             Log.d("ho4","hey4");
-            JSONArray ja = new JSONArray(new String (buffer, "UTF-8"));
+            String lol = new String (buffer, "UTF-8");
+            Log.d("hohohho", lol);
+            JSONObject jo = new JSONObject(lol);
+            Log.d("hihihih", jo.toString());
+            JSONArray ja = jo.getJSONArray("results");
             Log.d("ho5","hey5");
 
             return ja;
@@ -49,7 +54,29 @@ public class Toolbox {
         }
     }
 
-    //Code taken from https://stackoverflow.com/questions/8326852/how-to-delete-cache-folder-of-app
+    public static JSONArray getJSONArrayFromFileBeer(Context context, String string){
+        try{
+            InputStream is = new FileInputStream(context.getCacheDir()+"/"+string);
+            Log.d("ho1","hey1");
+            byte[] buffer = new byte[is.available()];
+            Log.d("ho2",String.valueOf(is.available()));
+            Log.d("ho2",String.valueOf(buffer.length));
+            is.read(buffer);
+            Log.d("ho3","hey3");
+            is.close();
+            JSONArray ja = new JSONArray(new String(buffer, "UTF-8"));
+            Log.d("ho5","hey5");
+
+            return ja;
+        }catch (IOException e){
+            return new JSONArray();
+        }catch (JSONException e){
+            return new JSONArray();
+        }
+    }
+
+
+        //Code taken from https://stackoverflow.com/questions/8326852/how-to-delete-cache-folder-of-app
     protected void destroyCache(Context context) {
 
         try {

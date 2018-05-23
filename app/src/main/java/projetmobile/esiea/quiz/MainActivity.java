@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         Quizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aQuizz.putExtra("TYPEQUIZZ", 0);
+                aQuizz.putExtra("TYPEQUIZZ", 1);
                 startActivity(aQuizz);
             }
         });

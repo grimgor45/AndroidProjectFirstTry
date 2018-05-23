@@ -1,6 +1,5 @@
 package projetmobile.esiea.quiz;
 
-import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,16 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class PokeList extends AppCompatActivity {
 
@@ -39,7 +31,7 @@ public class PokeList extends AppCompatActivity {
             rv = findViewById(R.id.rv_poke);
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
-                ((PokeAdapter) rv.getAdapter()).setNewPoke(Toolbox.getJSONArrayFromFile(context, JSONARRAY_NAME));
+                ((PokeAdapter) rv.getAdapter()).setNewPoke(Toolbox.getJSONArrayFromFilePoke(context, JSONARRAY_NAME));
                 Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
                 toast.show();
                 Log.d("Download", "finished");
@@ -67,10 +59,13 @@ public class PokeList extends AppCompatActivity {
 
         rv = findViewById(R.id.rv_poke);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.setAdapter(new PokeAdapter(Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME)));
+        rv.setAdapter(new PokeAdapter(Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME)));
 
         IntentFilter intentFilter = new IntentFilter(POKE_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(new PokeUpdate(),intentFilter);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_poke_list);
+        setSupportActionBar(myToolbar);
     }
 
 

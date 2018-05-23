@@ -59,7 +59,7 @@ public class GetPokeService extends IntentService {
         URL url = null;
         boolean downloaded = false;
         try{
-            url = new URL("https://pokeapi.co/api/v2/pokemon.json");
+            url = new URL("https://pokeapi.co/api/v2/pokemon.json/?limit=1000");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.connect();

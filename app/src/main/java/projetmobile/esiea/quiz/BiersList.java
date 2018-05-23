@@ -1,6 +1,5 @@
 package projetmobile.esiea.quiz;
 
-import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,16 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class BiersList extends AppCompatActivity {
 
@@ -39,7 +31,7 @@ public class BiersList extends AppCompatActivity {
             rv = findViewById(R.id.rv_biers);
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
-                ((BiersAdapter) rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFile(context, JSONARRAY_NAME));
+                ((BiersAdapter) rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFileBeer(context, JSONARRAY_NAME));
                 Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
                 toast.show();
                 Log.d("Download", "finished");
@@ -67,10 +59,13 @@ public class BiersList extends AppCompatActivity {
 
         rv = findViewById(R.id.rv_biers);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.setAdapter(new BiersAdapter(Toolbox.getJSONArrayFromFile(this, JSONARRAY_NAME)));
+        rv.setAdapter(new BiersAdapter(Toolbox.getJSONArrayFromFileBeer(this, JSONARRAY_NAME)));
 
         IntentFilter intentFilter = new IntentFilter(BIERS_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(new BierUpdate(),intentFilter);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_beer_list);
+        setSupportActionBar(myToolbar);
     }
 
 
