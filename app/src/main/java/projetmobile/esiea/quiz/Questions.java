@@ -59,7 +59,7 @@ public class Questions extends AppCompatActivity {
             Log.d("IT", "works");
             listPoke = Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME_POKE);
             if (listPoke.length()>=4) {
-                changeAnswerList(listPoke, "description");
+                changeAnswerList(listPoke, "id");
             }
         }
 

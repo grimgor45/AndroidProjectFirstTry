@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class PokeList extends AppCompatActivity {
 
@@ -67,6 +71,16 @@ public class PokeList extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_return:
                 startActivity(mainMenu);
+                return true;
+            case R.id.action_language:
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+
+                Locale locale = new Locale(pref.getString("lang_code","en"));
+                Locale.setDefault(locale);
+                Configuration conf = getBaseContext().getResources().getConfiguration();
+                conf.locale= locale;
+                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

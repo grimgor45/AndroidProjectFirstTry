@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class BiersList extends AppCompatActivity {
 
@@ -64,6 +68,15 @@ public class BiersList extends AppCompatActivity {
             case R.id.action_return:
                 startActivity(mainMenu);
                 return true;
+            case R.id.action_language:
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+
+                Locale locale = new Locale(pref.getString("lang_code","fr"));
+                Locale.setDefault(locale);
+                Configuration conf = getBaseContext().getResources().getConfiguration();
+                conf.locale= locale;
+                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
+
             default:
                 return super.onOptionsItemSelected(item);
 
