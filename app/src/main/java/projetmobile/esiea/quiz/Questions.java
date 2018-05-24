@@ -164,7 +164,7 @@ public class Questions extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String text = "Wrong answer"+" right was "+goodAnswer;
+            String text = "Wrong answer "+",the right one was "+goodAnswer;
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();

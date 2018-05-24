@@ -13,10 +13,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="25dp"
+        android:textSize="30dp"
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="50dp"
         android:text="@string/PickTheme"/>
+
+    <TextView
+        android:id="@+id/PickTheme2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/PickTheme"
+        android:text="@string/PickTheme2"/>
 
     <ImageButton
         android:id="@+id/Theme1"

@@ -7,6 +7,7 @@
     <string name="ButtonBiersList">bièresList</string>
     <string name="pokemon">Pokémons</string>
     <string name="beers">Bières</string>
-    <string name="PickTheme">Choisissez le thème de votre quiz</string>
+    <string name="PickTheme">Choisissez le thème</string>
+    <string name="PickTheme2">de votre quiz</string>
 
 </resources>
