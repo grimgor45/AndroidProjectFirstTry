@@ -57,17 +57,13 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menumain, menu);
 
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_delete:
-                return true;
-            case R.id.action_settings:
-                return true;
-            case R.id.action_save:
+            case R.id.action_return:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -84,9 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         ScrollView myScrollView = (ScrollView) findViewById(R.id.mainMenuScrollView);
         myScrollView.getLayoutParams().height = ((int) Toolbox.ScHgt(this)-250);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         GetBiersService.startActionGetAllBiers(MainActivity.this);
 

@@ -121,6 +121,8 @@ public class Questions extends AppCompatActivity {
                 AlertDialog.Builder builder = TrulyExit();
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+
             }
         });
     }

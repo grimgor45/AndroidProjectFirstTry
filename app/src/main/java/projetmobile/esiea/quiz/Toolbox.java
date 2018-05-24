@@ -31,20 +31,19 @@ public class Toolbox {
     public static JSONArray getJSONArrayFromFilePoke(Context context, String string){
         try{
             InputStream is = new FileInputStream(context.getCacheDir()+"/"+string);
-            Log.d("ho1","hey1");
             byte[] buffer = new byte[is.available()];
-            Log.d("ho2",String.valueOf(is.available()));
-            Log.d("ho2",String.valueOf(buffer.length));
+
+
             is.read(buffer);
-            Log.d("ho3","hey3");
+
             is.close();
-            Log.d("ho4","hey4");
+
             String lol = new String (buffer, "UTF-8");
-            Log.d("hohohho", lol);
+
             JSONObject jo = new JSONObject(lol);
-            Log.d("hihihih", jo.toString());
+
             JSONArray ja = jo.getJSONArray("results");
-            Log.d("ho5","hey5");
+
 
             return ja;
         }catch (IOException e){

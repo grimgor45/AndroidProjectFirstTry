@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 public class BiersList extends AppCompatActivity {
@@ -24,6 +26,7 @@ public class BiersList extends AppCompatActivity {
     private String correctDownloadToast = "Correctly downloaded";
     private String incorrectDownloadToast = "Download Failed please enable wifi";
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
+    Intent mainMenu = null;
 
     public class BierUpdate extends BroadcastReceiver {
         @Override
@@ -48,12 +51,32 @@ public class BiersList extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menumain, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_return:
+                startActivity(mainMenu);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biers_list);
+        mainMenu = new Intent(this, MainActivity.class);
+
 
         GetBiersService.startActionGetAllBiers(BiersList.this);
 
@@ -64,8 +87,7 @@ public class BiersList extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(BIERS_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(new BierUpdate(),intentFilter);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_beer_list);
-        setSupportActionBar(myToolbar);
+
     }
 
 
