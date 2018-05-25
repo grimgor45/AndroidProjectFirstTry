@@ -1,6 +1,7 @@
 package projetmobile.esiea.quiz;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,14 +19,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+
 public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
 
     private JSONArray poke;
+    private  Context context;
 
 
-
-    public PokeAdapter(JSONArray list){
+    public PokeAdapter(JSONArray list, Context context){
         poke = list;
+        this.context = context;
     }
 
     public void setNewPoke(JSONArray poke)
@@ -50,7 +54,7 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
 
             final String name = jo.getString("name");
 
-            GetImagePokeService.startActionGetImagePoke(holder.name.getContext(), name);
+            GetImagePokService.startActionGetImagePoke(holder.name.getContext(), name);
 
             holder.name.setText(name);
 
@@ -63,8 +67,13 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
                     v.getContext().startActivity(intent);
                 }
             });
-            Bitmap bm = BitmapFactory.decodeFile(MainActivity.cacheDir + "/" + "pokeImage.png");
-            holder.iv.setImageBitmap(Bitmap.createScaledBitmap(bm,100,100,false));
+            String path = context.getCacheDir() + "/" + name+".png";
+            File file = new File(path);
+            if(file.exists()){
+                Bitmap bm = BitmapFactory.decodeFile(path);
+                holder.iv.setImageBitmap(Bitmap.createScaledBitmap(bm,100,100,false));
+            }
+
         }catch (JSONException e){
             e.printStackTrace();
         }

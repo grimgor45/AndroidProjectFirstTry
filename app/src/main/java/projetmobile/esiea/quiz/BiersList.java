@@ -27,8 +27,8 @@ public class BiersList extends AppCompatActivity {
 
     public static final String BIERS_UPDATE = "projetmobile.esiea.quiz.BIERS_UPDATE";
 
-    private String correctDownloadToast = "Correctly downloaded";
-    private String incorrectDownloadToast = "Download Failed please enable wifi";
+    private String correctDownloadToast;
+    private String incorrectDownloadToast ;
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
     Intent mainMenu = null;
 
@@ -89,8 +89,8 @@ public class BiersList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biers_list);
         mainMenu = new Intent(this, MainActivity.class);
-
-
+        correctDownloadToast = getString(R.string.Downloadsuccess);
+        incorrectDownloadToast = getString(R.string.DownloadFailed);
         GetBiersService.startActionGetAllBiers(BiersList.this);
 
         rv = findViewById(R.id.rv_biers);
