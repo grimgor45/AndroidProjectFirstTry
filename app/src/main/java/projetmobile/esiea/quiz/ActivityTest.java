@@ -1,5 +1,6 @@
 package projetmobile.esiea.quiz;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,7 +29,11 @@ public class ActivityTest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        GetPokeService.startActionGetAllPok(this);
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        String keyword= "bullbasaure";
+        intent.putExtra(SearchManager.QUERY, keyword);
+        startActivity(intent);
+        /*GetPokeService.startActionGetAllPok(this);
         ja = Toolbox.getJSONArrayFromFilePoke(this, "poke.json");
         Random rand = new Random();
         name = null;
@@ -84,5 +89,5 @@ public class ActivityTest extends AppCompatActivity {
 
 
 
-    }
+    }*/}
 }

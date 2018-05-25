@@ -107,11 +107,7 @@ public class Questions extends AppCompatActivity {
                 A4.setEnabled(true);
             }
             else{
-                try {
-                    GetImagePokeService.startActionGetImagePoke(context, aL.objList[aL.correct-1].getString("name"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
                 toast.show();
                 Log.d("Download", "failed");
@@ -157,7 +153,6 @@ public class Questions extends AppCompatActivity {
         typequizz = getIntent().getIntExtra("TYPEQUIZZ",QuestionsType.beerDescription.ordinal());
 
 
-
         A3 = (Button)findViewById(R.id.Answer3);
         A3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +160,7 @@ public class Questions extends AppCompatActivity {
                 manageAnswerButton(3);
             }
         });
+
         A4 = (Button)findViewById(R.id.Answer4);
         A4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,11 +168,16 @@ public class Questions extends AppCompatActivity {
                 manageAnswerButton(4);
             }
         });
+        if(typequizz == QuestionsType.pokemonorbeer.ordinal())
+        {
+            A3.setVisibility(View.GONE);
+            A4.setVisibility(View.GONE);
+        }
         if(typequizz== QuestionsType.pokemonorbeer.ordinal()){
-            A1.setText("beer");
-            A2.setText("poke");
-            ImageView iv = (ImageView) findViewById(R.id.image_view_question);
-            iv.setVisibility(ImageView.INVISIBLE);
+        A1.setText("beer");
+        A2.setText("poke");
+        ImageView iv = (ImageView) findViewById(R.id.image_view_question);
+        iv.setVisibility(ImageView.INVISIBLE);
         }
 
         if(typequizz == QuestionsType.beerDescription.ordinal()) {
@@ -349,9 +350,11 @@ public class Questions extends AppCompatActivity {
             TextView tv = (TextView) findViewById(R.id.QuizzQuestionText);
             if (beerPoke)
             {
+
                 tv.setText(Toolbox.getRandomElementName(listBeer));
             }
             else{
+
                 tv.setText(Toolbox.getRandomElementName(listPoke));
             }
         }

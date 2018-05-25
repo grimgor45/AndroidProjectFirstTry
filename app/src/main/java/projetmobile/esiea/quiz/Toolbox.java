@@ -36,7 +36,7 @@ public class Toolbox {
     public static String getRandomElementName(JSONArray ja)
     {
         Random rand = new Random();
-        String name = null;
+        String name = "PLaceHolder";
         try {
             name = ja.getJSONObject(rand.nextInt()%ja.length()).getString("name");
         } catch (JSONException e) {
