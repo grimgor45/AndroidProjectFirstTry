@@ -53,7 +53,7 @@ public class Questions extends AppCompatActivity {
     Random rand;
     Boolean beerPoke = true;
     public String hey;
-
+    Boolean show;
 
     public static final String POKE_IMAGE_UPADTE= "projetmobile.esiea.quiz.POKE_UPDATE";
 
@@ -96,8 +96,8 @@ public class Questions extends AppCompatActivity {
             if (downloaded) {
                 Bitmap bm = BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png");
                 iv.setImageBitmap(Bitmap.createScaledBitmap(bm,500,500,false));
-                Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                toast.show();
+                //Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
+                //toast.show();
                 Log.d("lelol", "finished");
 
                 Toolbox.createShowNotificationDownload(getApplicationContext());
@@ -108,8 +108,13 @@ public class Questions extends AppCompatActivity {
             }
             else{
 
-                Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
-                toast.show();
+                if(show){
+                    Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
+
+                    toast.show();
+                    show = false;
+                }
+
                 Log.d("Download", "failed");
 
             }
@@ -122,7 +127,7 @@ public class Questions extends AppCompatActivity {
 
         mainMenu = new Intent(this, MainActivity.class);
 
-
+        show = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
@@ -294,12 +299,6 @@ public class Questions extends AppCompatActivity {
             if (id == 1 &&  beerPoke){
                 score++;
             }
-            if (id == 1 && !beerPoke){
-
-            }
-            if(id == 2 && beerPoke){
-
-            }
             if(id == 2 && !beerPoke){
                 score++;
             }
@@ -353,12 +352,18 @@ public class Questions extends AppCompatActivity {
             TextView tv = (TextView) findViewById(R.id.QuizzQuestionText);
             if (beerPoke)
             {
-
-                tv.setText(Toolbox.getRandomElementName(listBeer, getBaseContext()));
+                String str = Toolbox.getRandomElementName(listBeer, getBaseContext());
+                String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
+                tv.setText(cap);
             }
             else{
-
-                tv.setText(Toolbox.getRandomElementName(listPoke, getBaseContext()));
+                String str = Toolbox.getRandomElementName(listPoke, getBaseContext());
+                String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
+                tv.setText(cap);
+            }
+            if (tv.getText().equals(getString(R.string.placeholder)))
+            {
+                changeAnswerList(null, null);
             }
         }
         else{

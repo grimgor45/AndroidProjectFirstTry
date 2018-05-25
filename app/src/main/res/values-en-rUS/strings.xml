@@ -16,7 +16,7 @@
     <string name = "Downloadsuccess">Download successfull</string>
     <string name = "DownloadFailed">Download failed please check internet connection</string>
     <string name = "Pokemon">Pokemon</string>
-    <string name = "Beer">Pokemon</string>
+    <string name = "Beer">Beer</string>
     <string name = "stopquizz">Close quizz ?</string>
     <string name ="ok">Ok</string>
     <string name = "no">Cancel</string>
@@ -26,4 +26,6 @@
     <string name = "placeholder">PlaceHolder</string>
     <string name ="downloadended">Download ended</string>
     <string name = "showdownloadedlist">Show list of </string>
+
+
 </resources>

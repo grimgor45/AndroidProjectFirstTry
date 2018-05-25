@@ -53,11 +53,11 @@ public class GetImagePokeService extends IntentService {
         Log.d("downloading1","poke");
 
         if (intent != null) {
+            boolean downloaded = false;
             final String action = intent.getAction();
             if (ACTION_GET_IMAGE_POKE.equals(action)) {
                 final String param1 = intent.getStringExtra(paramName);
-
-                handleActionFoo(param1);
+                 handleActionFoo(param1);
             }
         }
     }
@@ -81,6 +81,8 @@ public class GetImagePokeService extends IntentService {
             con.connect();
 
             if (HttpURLConnection.HTTP_OK == con.getResponseCode()){
+                Log.d("yahou1", "");
+
                 copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.json"));
                 JSONObject jo = Toolbox.getJSONObjectFromFile(this, "pokeImage.json");
 
@@ -134,9 +136,7 @@ public class GetImagePokeService extends IntentService {
                 Log.d("downloading","failed");
 
             }
-            Intent broadcastedIntent=new Intent(Questions.POKE_IMAGE_UPADTE);
-            broadcastedIntent.putExtra("VALUE", downloaded);
-            LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
+
 
         }
         catch(MalformedURLException e){
@@ -150,6 +150,9 @@ public class GetImagePokeService extends IntentService {
         catch (JSONException e) {
             e.printStackTrace();
         }
+        Intent broadcastedIntent = new Intent(Questions.POKE_IMAGE_UPADTE);
+        broadcastedIntent.putExtra("VALUE", downloaded);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
 
     }
 

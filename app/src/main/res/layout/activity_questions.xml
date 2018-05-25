@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Score_text"
         android:textColor="@color/HeavyRed"
-        android:text="@string/Problem" />
+        android:text="0" />
     <TextView
         android:id="@+id/Question"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Question"
         android:layout_alignParentRight="true"
-        android:text="@string/Problem"/>
+        android:text="0"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,6 +59,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/QuizzQuestionText"
                 android:id="@+id/image_view_question"/>
         </RelativeLayout>

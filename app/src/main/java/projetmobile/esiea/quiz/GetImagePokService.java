@@ -41,6 +41,7 @@ public class GetImagePokService extends IntentService {
 
 
     public static void startActionGetImagePoke(Context context, String pokeName) {
+        Log.d("estcequecamarche", "123300");
         Intent intent = new Intent(context, GetImagePokeService.class);
         intent.setAction(ACTION_GET_IMAGE_POKE);
         intent.putExtra(paramName, pokeName);
@@ -81,8 +82,8 @@ public class GetImagePokService extends IntentService {
             con.connect();
 
             if (HttpURLConnection.HTTP_OK == con.getResponseCode()){
-                copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), paramPoke+"json"));
-                JSONObject jo = Toolbox.getJSONObjectFromFile(this, paramPoke+"json");
+                copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.json"));
+                JSONObject jo = Toolbox.getJSONObjectFromFile(this, "pokeImage.json");
 
                 JSONObject spritesurl = jo.getJSONObject("sprites");
                 Log.d("yahou1", String.valueOf(spritesurl.length()));
@@ -118,8 +119,9 @@ public class GetImagePokService extends IntentService {
                     if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
                         //copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.png"));
                         Log.d("yahalo", getCacheDir().toString());
-                        File file = new File(getCacheDir(), "pokeImage.png");
+                        File file = new File(getCacheDir(),  paramPoke+".png");
 
+                        Log.d("estcequecamarche",getCacheDir().toString() + "/" + paramPoke+".png");
                         copyInputStreamToFile(conn.getInputStream(), file);
 
                         Log.d("yipi1", "copyseemstowork");
@@ -134,9 +136,9 @@ public class GetImagePokService extends IntentService {
                 Log.d("downloading","failed");
 
             }
-            Intent broadcastedIntent=new Intent(Questions.POKE_IMAGE_UPADTE);
-            broadcastedIntent.putExtra("VALUE", downloaded);
-            LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
+            //Intent broadcastedIntent=new Intent(Questions.POKE_IMAGE_UPADTE);
+            //broadcastedIntent.putExtra("VALUE", downloaded);
+            //LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
 
         }
         catch(MalformedURLException e){
@@ -145,6 +147,7 @@ public class GetImagePokService extends IntentService {
 
         }
         catch (IOException e){
+            Log.d("laoucamarchepas", "ajh");
             e.printStackTrace();
         }
         catch (JSONException e) {
@@ -156,7 +159,7 @@ public class GetImagePokService extends IntentService {
     private void copyInputStreamToFile(InputStream is, File file){
         try{
             OutputStream out = new FileOutputStream(file);
-            byte[] bit = new byte [1024*4];
+            byte[] bit = new byte [1024*2];
             int len;
             while ((len=is.read(bit))>0){
                 out.write(bit,0,len);

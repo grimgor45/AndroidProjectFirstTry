@@ -26,4 +26,6 @@
     <string name = "placeholder">PlaceHolder</string>
     <string name ="downloadended">Download ended</string>
     <string name = "showdownloadedlist">Show list of </string>
+    <string name = "Pokelist">Show list of </string>
+    <string name = "Beerlist">Show list of </string>
 </resources>

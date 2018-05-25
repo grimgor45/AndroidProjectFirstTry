@@ -35,5 +35,13 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton pokebeerButton = (ImageButton) findViewById(R.id.Theme3);
+        pokebeerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionsIntent.putExtra("TYPEQUIZZ", QuestionsType.pokemonorbeer.ordinal());
+                startActivity(questionsIntent);
+            }
+        });
     }
 }

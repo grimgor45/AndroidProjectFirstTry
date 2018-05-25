@@ -31,6 +31,8 @@ public class BiersList extends AppCompatActivity {
     private String incorrectDownloadToast ;
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
     Intent mainMenu = null;
+    Toast toast;
+    boolean show = true;
 
     public class BierUpdate extends BroadcastReceiver {
         @Override
@@ -39,15 +41,18 @@ public class BiersList extends AppCompatActivity {
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
                 ((BiersAdapter) rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFileBeer(context, JSONARRAY_NAME));
-                Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                toast.show();
+                //Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
+                //toast.show();
                 Log.d("Download", "finished");
 
                 Toolbox.createShowNotificationDownload(getApplicationContext());
             }
             else{
-                Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
-                toast.show();
+
+                if(show) {
+                    show =false;
+                    toast.show();
+                }
                 Log.d("Download", "failed");
 
             }
@@ -86,11 +91,14 @@ public class BiersList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biers_list);
         mainMenu = new Intent(this, MainActivity.class);
         correctDownloadToast = getString(R.string.Downloadsuccess);
         incorrectDownloadToast = getString(R.string.DownloadFailed);
+        toast = Toast.makeText(this, incorrectDownloadToast, toastDuration);
+
         GetBiersService.startActionGetAllBiers(BiersList.this);
 
         rv = findViewById(R.id.rv_biers);

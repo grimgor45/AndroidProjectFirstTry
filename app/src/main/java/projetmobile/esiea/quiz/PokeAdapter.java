@@ -67,9 +67,11 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
                     v.getContext().startActivity(intent);
                 }
             });
-            String path = context.getCacheDir() + "/" + name+".png";
+            String path = context.getCacheDir().toString() + "/" + name+".png";
+            Log.d("estcequecamarche1", path);
             File file = new File(path);
             if(file.exists()){
+                Log.d("yahouloula", "hih");
                 Bitmap bm = BitmapFactory.decodeFile(path);
                 holder.iv.setImageBitmap(Bitmap.createScaledBitmap(bm,100,100,false));
             }

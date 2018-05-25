@@ -33,6 +33,8 @@ public class PokeList extends AppCompatActivity {
     private String incorrectDownloadToast;
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
     Intent mainMenu = null;
+    Toast toast ;
+    boolean show;
 
 
     public class PokeUpdate extends BroadcastReceiver {
@@ -42,16 +44,17 @@ public class PokeList extends AppCompatActivity {
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
                 ((PokeAdapter) rv.getAdapter()).setNewPoke(Toolbox.getJSONArrayFromFilePoke(context, JSONARRAY_NAME));
-                Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                toast.show();
+                //Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
+                //toast.show();
                 Log.d("Download", "finished");
 
                 Toolbox.createShowNotificationDownload(getApplicationContext());
             }
-            else{
-                Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
+            else{if (show){
                 toast.show();
-                Log.d("Download", "failed");
+                show = false;
+            }
+             Log.d("Download", "failed");
 
             }
         }
@@ -93,8 +96,11 @@ public class PokeList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poke_list);
 
-         correctDownloadToast = getString(R.string.Downloadsuccess);
+
+
+        correctDownloadToast = getString(R.string.Downloadsuccess);
         incorrectDownloadToast = getString(R.string.DownloadFailed);
+        toast = Toast.makeText(this, incorrectDownloadToast, toastDuration);
 
         mainMenu = new Intent(this, MainActivity.class);
 
