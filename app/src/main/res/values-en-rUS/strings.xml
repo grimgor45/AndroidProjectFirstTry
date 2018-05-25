@@ -3,10 +3,14 @@
     <string name="app_name">The Pokebeer Quiz</string>
     <string name="Introduction">The ultimate test to your knowledge !</string>
     <string name="ButtonSecondAct">PLAY !</string>
-    <string name="Problem">Application not working you should not see this line</string>
+    <string name="Problem">Please load</string>
     <string name="ButtonBiersList">BiersList</string>
     <string name="pokemon">Pokemons</string>
     <string name="beers">Beers</string>
     <string name="PickTheme">Pick your quiz's theme</string>
     <string name="PickTheme2"></string>
+    <string name="Score">Score :</string>
+    <string name="Question">Question :</string>
+    <string name="Load">Load</string>
+    <string name="Quit">Quit</string>
 </resources>
