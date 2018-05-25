@@ -7,7 +7,7 @@
     <string name="ButtonBiersList">BiersList</string>
     <string name="pokemon">Pokemons</string>
     <string name="beers">Beers</string>
-    <string name="PickTheme">Pick your quiz's theme</string>
+    <string name="PickTheme">Pick your quiz\'s theme</string>
     <string name="PickTheme2"></string>
     <string name="Score">Score :</string>
     <string name="Question">Question :</string>
@@ -16,7 +16,7 @@
     <string name = "Downloadsuccess">Download successfull</string>
     <string name = "DownloadFailed">Download failed please check internet connection</string>
     <string name = "Pokemon">Pokemon</string>
-    <string name = "Beer">Beer</string>
+    <string name = "Beer">Pokemon</string>
     <string name = "stopquizz">Close quizz ?</string>
     <string name ="ok">Ok</string>
     <string name = "no">Cancel</string>
@@ -26,6 +26,7 @@
     <string name = "placeholder">PlaceHolder</string>
     <string name ="downloadended">Download ended</string>
     <string name = "showdownloadedlist">Show list of </string>
-
+    <string name="Pokelist">Who\'s that pokemon?</string>
+    <string name="Beerlist">Who\'s that beer?</string>
 
 </resources>
