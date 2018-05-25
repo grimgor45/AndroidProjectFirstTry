@@ -6,9 +6,40 @@
     android:layout_height="match_parent"
     tools:context="projetmobile.esiea.quiz.Questions">
 
+    <TextView
+        android:id="@+id/Score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/HeavyRed"
+        android:text="@string/Score"/>
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Score_text"
+        android:textColor="@color/HeavyRed"
+        android:text="@string/Problem" />
+    <TextView
+        android:id="@+id/Question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentRight="true"
+        android:text="@string/Question"/>
+    <TextView
+        android:id="@+id/ActualScore"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Question"
+        android:layout_alignParentRight="true"
+        android:text="@string/Problem"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/ActualScore"
         android:id="@+id/ScrollViewDescriptionBeer">
 
         <RelativeLayout
@@ -21,6 +52,7 @@
                 android:id="@+id/QuizzQuestionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/BlackRed"
                 android:layout_centerHorizontal="true"
                 android:text="@string/Problem"/>
         </RelativeLayout>
@@ -29,54 +61,59 @@
 
     <Button
         android:id="@+id/Answer1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/ScrollViewDescriptionBeer"
+        android:layout_centerHorizontal="true"
+        android:background="@color/Red"
         android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@color/Red"
         android:layout_below="@+id/Answer1"
         android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/Answer2"
+        android:background="@color/Red"
         android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@color/Red"
         android:layout_below="@+id/Answer3"
         android:text="@string/Problem"/>
 
-    <TextView
-        android:id="@+id/Score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Answer4"
-        android:text="@string/Problem" />
-    <TextView
-        android:id="@+id/ActualScore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Score"
-        android:text="@string/Problem"/>
     <Button
         android:id="@+id/ButtonLoad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="pressToLoad"
-        android:layout_below="@+id/ActualScore"/>
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="@string/Load"
+        android:background="@color/LightBlue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"/>
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:id="@+id/Buttonquit"
-        android:text="Quit"
-        android:layout_below="@+id/ButtonLoad"/>
-
-
+        android:background="@color/HeavyRed"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/Quit"/>
 
 </RelativeLayout>

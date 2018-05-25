@@ -20,7 +20,7 @@ public class Questions extends AppCompatActivity {
 
     public AnswerList aL;
     public int score;
-    public int actualScore;
+    public int actualScore=1;
     JSONArray listBeer;
     JSONArray listPoke;
     private final String JSONARRAY_NAME_BEER =  "bieres.json";
@@ -37,9 +37,9 @@ public class Questions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
-        int scrollViewHeight = (int)Toolbox.ScHgt(this)/4;
+       /* int scrollViewHeight = (int)Toolbox.ScHgt(this)/4;
         ScrollView scrollView = (ScrollView) findViewById(R.id.ScrollViewDescriptionBeer);
-        scrollView.getLayoutParams().height = scrollViewHeight;
+        scrollView.getLayoutParams().height = scrollViewHeight;*/
 
 
         typequizz = getIntent().getIntExtra("TYPEQUIZZ",0);
@@ -131,7 +131,7 @@ public class Questions extends AppCompatActivity {
         final Intent quitToMainAct = new Intent(this, MainActivity.class);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Add the buttons
-        builder.setMessage("This will end the activity");
+        builder.setMessage("This will end the quiz");
 
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
