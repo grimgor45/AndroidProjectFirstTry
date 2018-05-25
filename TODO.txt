@@ -9,3 +9,6 @@ return button on evry activity/ actionbar buttons
 appel appli externe(Google map beer and google map pokemon)
 working rotation main activity
 rename strings / colors for marvelous app
+
+
+Bite
