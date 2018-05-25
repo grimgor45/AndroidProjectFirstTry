@@ -42,8 +42,8 @@ public class Questions extends AppCompatActivity {
     private final String JSONARRAY_NAME_POKE =  "poke.json";
     public int typequizz;
     public String valueQuestion = "name";
-    private String correctDownloadToast = "Correctly downloaded";
-    private String incorrectDownloadToast = "Download Failed please enable wifi";
+    private String correctDownloadToast;
+    private String incorrectDownloadToast;
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
     Button A1;
     Button A2;
@@ -126,6 +126,9 @@ public class Questions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
+        correctDownloadToast = getString(R.string.Downloadsuccess);
+        incorrectDownloadToast = getString(R.string.DownloadFailed);
+
         rand = new Random();
 
         int scrollViewHeight = (int)Toolbox.ScHgt(this)/4;
@@ -174,8 +177,8 @@ public class Questions extends AppCompatActivity {
             A4.setVisibility(View.GONE);
         }
         if(typequizz== QuestionsType.pokemonorbeer.ordinal()){
-        A1.setText("beer");
-        A2.setText("poke");
+        A1.setText(getString(R.string.Beer));
+        A2.setText(getString(R.string.Pokemon));
         ImageView iv = (ImageView) findViewById(R.id.image_view_question);
         iv.setVisibility(ImageView.INVISIBLE);
         }
@@ -211,10 +214,10 @@ public class Questions extends AppCompatActivity {
             {
 
 
-                tv.setText(Toolbox.getRandomElementName(listBeer));
+                tv.setText(Toolbox.getRandomElementName(listBeer, getBaseContext()));
             }
             else{
-                tv.setText(Toolbox.getRandomElementName(listPoke));
+                tv.setText(Toolbox.getRandomElementName(listPoke, getBaseContext()));
             }
 
 
@@ -268,14 +271,14 @@ public class Questions extends AppCompatActivity {
         final Intent quitToMainAct = new Intent(this, MainActivity.class);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Add the buttons
-        builder.setMessage("This will end the activity");
+        builder.setMessage(getString(R.string.stopquizz));
 
-        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 startActivity(quitToMainAct);
             }
         });
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User cancelled the dialog
             }
@@ -310,7 +313,7 @@ public class Questions extends AppCompatActivity {
         {
             score++;
             Context context = getApplicationContext();
-            CharSequence text = "Correct Answer";
+            CharSequence text = getString(R.string.correctanswer);
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);
@@ -324,7 +327,7 @@ public class Questions extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String text = "Wrong answer "+",the right one was "+goodAnswer;
+            String text = getString(R.string.correctanswerwas)+goodAnswer;
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -351,11 +354,11 @@ public class Questions extends AppCompatActivity {
             if (beerPoke)
             {
 
-                tv.setText(Toolbox.getRandomElementName(listBeer));
+                tv.setText(Toolbox.getRandomElementName(listBeer, getBaseContext()));
             }
             else{
 
-                tv.setText(Toolbox.getRandomElementName(listPoke));
+                tv.setText(Toolbox.getRandomElementName(listPoke, getBaseContext()));
             }
         }
         else{
@@ -381,7 +384,7 @@ public class Questions extends AppCompatActivity {
             try {
                 ImageView iv = (ImageView) findViewById(R.id.image_view_question);
                 iv.setVisibility(ImageView.INVISIBLE);
-                ((TextView) findViewById(R.id.QuizzQuestionText)).setText("Description de la bière " + aL.objList[aL.correct - 1].getString(JSONValueQestion));
+                ((TextView) findViewById(R.id.QuizzQuestionText)).setText(getString(R.string.beerdescription) + aL.objList[aL.correct - 1].getString(JSONValueQestion));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -413,17 +416,14 @@ public class Questions extends AppCompatActivity {
 
             }
         });
-        Log.d("hihihi",String.valueOf(file[0].getTotalSpace()));
         //imageView.setImageBitmap(BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png"));
 
 
         ImageView image = (ImageView) findViewById(R.id.image_view_question);
-        Log.d("hihihi1",String.valueOf(file[0].getTotalSpace()));
 
         //Bitmap bm = BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png");
         //image.setImageBitmap(Bitmap.createScaledBitmap(bm,500,500,false));
 
-        Log.d("hihihi2",String.valueOf(file[0].getTotalSpace()));
         }
 }
 

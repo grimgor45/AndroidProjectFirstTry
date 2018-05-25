@@ -13,4 +13,19 @@
     <string name="Question">Question :</string>
     <string name="Load">Charger</string>
     <string name="Quit">Quitter</string>
+    <string name = "Downloadsuccess">Téléchargement réussi</string>
+    <string name = "DownloadFailed">Téléchargement échoué veuillez vérifier la connection</string>
+    <string name = "Pokemon">Pokémon</string>
+    <string name = "Beer">Bière</string>
+    <string name = "stopquizz">Fermer le quizz ?</string>
+    <string name ="ok">Ok</string>
+    <string name = "no">Annuler</string>
+    <string name = "correctanswer">Bonne réponse</string>
+    <string name = "correctanswerwas">Wrong : correct answer was </string>
+    <string name = "beerdescription">Description de la bière : </string>
+    <string name = "placeholder">PlaceHolder</string>
+    <string name ="downloadended">Fin du téléchargement</string>
+    <string name = "showdownloadedlist">Montrer la liste de </string>
+
+
 </resources>

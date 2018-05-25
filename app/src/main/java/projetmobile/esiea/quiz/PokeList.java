@@ -29,8 +29,8 @@ public class PokeList extends AppCompatActivity {
 
     public static final String POKE_UPDATE= "projetmobile.esiea.quiz.POKE_UPDATE";
 
-    private String correctDownloadToast = "Correctly downloaded";
-    private String incorrectDownloadToast = "Download Failed please enable wifi";
+    private String correctDownloadToast;
+    private String incorrectDownloadToast;
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
     Intent mainMenu = null;
 
@@ -93,13 +93,16 @@ public class PokeList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poke_list);
 
+         correctDownloadToast = getString(R.string.Downloadsuccess);
+        incorrectDownloadToast = getString(R.string.DownloadFailed);
+
         mainMenu = new Intent(this, MainActivity.class);
 
         GetPokeService.startActionGetAllPok(PokeList.this);
 
         rv = findViewById(R.id.rv_poke);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.setAdapter(new PokeAdapter(Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME)));
+        rv.setAdapter(new PokeAdapter(Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME), getBaseContext()));
 
         IntentFilter intentFilter = new IntentFilter(POKE_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(new PokeUpdate(),intentFilter);
