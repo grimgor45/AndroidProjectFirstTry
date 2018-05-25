@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static String CHANNEL_ID = "projetmobile.esiea.quiz.NOTIFICATION";
     public static int notificationId = 42;
     static public boolean freng = true;
-    static String cacheDir;
+
 
     //Channel
     //code taken from https://developer.android.com/training/notify-user/build-notification
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cacheDir = this.getCacheDir().getPath();
 
         ScrollView myScrollView = (ScrollView) findViewById(R.id.mainMenuScrollView);
         myScrollView.getLayoutParams().height = ((int) Toolbox.ScHgt(this)-250);
@@ -118,15 +117,6 @@ public class MainActivity extends AppCompatActivity {
         final Intent aQuizz = new Intent(this, Questions.class);
 
         final Intent imageTest = new Intent(this, ActivityTest.class);
-
-        Button Quizz = (Button)findViewById(R.id.Quizz);
-        Quizz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                aQuizz.putExtra("TYPEQUIZZ", QuestionsType.pokemonorbeer.ordinal());
-                startActivity(imageTest);//imageTest
-            }
-        });
 
         final Intent BiersList = new Intent(this, BiersList.class);
 
