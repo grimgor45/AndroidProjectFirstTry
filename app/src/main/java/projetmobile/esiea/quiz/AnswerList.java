@@ -40,7 +40,6 @@ public class AnswerList {
 
             correct = rand.nextInt(4)+1;
 
-            Log.d("correctA + ", String.valueOf(correct));
         }
         catch(JSONException e)
         { }

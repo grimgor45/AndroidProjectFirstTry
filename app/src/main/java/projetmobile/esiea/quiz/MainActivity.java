@@ -59,39 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumainact, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_language:
-                String yeah = Locale.getDefault().getLanguage();
-                Log.d("hey", yeah);
-                Locale myLocale = new Locale("fr".toLowerCase());
-                Resources res = getResources();
-                DisplayMetrics dm = res.getDisplayMetrics();
-                Configuration conf = res.getConfiguration();
-                conf.locale = myLocale;
-                res.updateConfiguration(conf, dm);
-                Intent refresh = new Intent(this, MainActivity.class);
-                startActivity(refresh);
-                finish();
-                String yeah1 = Locale.getDefault().getLanguage();
-                Log.d("hey1", yeah1);
-
-                return true;
-                default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         createNotificationChannel();
 

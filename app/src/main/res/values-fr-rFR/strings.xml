@@ -25,7 +25,7 @@
     <string name = "beerdescription">Description de la bière : </string>
     <string name = "placeholder">PlaceHolder</string>
     <string name ="downloadended">Fin du téléchargement</string>
-    <string name = "showdownloadedlist">Montrer la liste de </string>
+    <string name = "showdownloadedlist">Montrer la liste de bières</string>
     <string name="Pokelist">Quel est ce pokémon?</string>
     <string name="Beerlist">Quelle est cette bierre?</string>
 

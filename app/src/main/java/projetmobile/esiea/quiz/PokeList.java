@@ -44,12 +44,9 @@ public class PokeList extends AppCompatActivity {
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
                 ((PokeAdapter) rv.getAdapter()).setNewPoke(Toolbox.getJSONArrayFromFilePoke(context, JSONARRAY_NAME));
-                //Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                //toast.show();
-                Log.d("Download", "finished");
 
-                Toolbox.createShowNotificationDownload(getApplicationContext());
-            }
+                Log.d("Download", "finished");
+                }
             else{if (show){
                 toast.show();
                 show = false;
@@ -63,8 +60,7 @@ public class PokeList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumain, menu);
+        getMenuInflater().inflate(R.menu.menumainact, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -74,16 +70,6 @@ public class PokeList extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_return:
                 startActivity(mainMenu);
-                return true;
-            case R.id.action_language:
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-                Locale locale = new Locale(pref.getString("lang_code","en"));
-                Locale.setDefault(locale);
-                Configuration conf = getBaseContext().getResources().getConfiguration();
-                conf.locale= locale;
-                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

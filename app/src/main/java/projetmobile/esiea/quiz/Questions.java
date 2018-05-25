@@ -59,8 +59,7 @@ public class Questions extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumain, menu);
+        getMenuInflater().inflate(R.menu.menumainact, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -70,15 +69,6 @@ public class Questions extends AppCompatActivity {
             case R.id.action_return:
                 startActivity(mainMenu);
                 return true;
-            case R.id.action_language:
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-                Locale locale = new Locale(pref.getString("lang_code","fr"));
-                Locale.setDefault(locale);
-                Configuration conf = getBaseContext().getResources().getConfiguration();
-                conf.locale= locale;
-                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
-
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -96,11 +86,8 @@ public class Questions extends AppCompatActivity {
             if (downloaded) {
                 Bitmap bm = BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png");
                 iv.setImageBitmap(Bitmap.createScaledBitmap(bm,500,500,false));
-                //Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                //toast.show();
-                Log.d("lelol", "finished");
 
-                Toolbox.createShowNotificationDownload(getApplicationContext());
+
                 A1.setEnabled(true);
                 A2.setEnabled(true);
                 A3.setEnabled(true);
@@ -115,7 +102,6 @@ public class Questions extends AppCompatActivity {
                     show = false;
                 }
 
-                Log.d("Download", "failed");
 
             }
         }
@@ -125,7 +111,7 @@ public class Questions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        mainMenu = new Intent(this, MainActivity.class);
+        mainMenu = new Intent(this, SecondActivity.class);
 
         show = true;
         super.onCreate(savedInstanceState);
@@ -198,10 +184,8 @@ public class Questions extends AppCompatActivity {
             }
         }
         if(typequizz == QuestionsType.PokemonSprits.ordinal()) {
-            Log.d("hey", "alizjdoiqshdjkskjjs");
             GetPokeService.startActionGetAllPok(Questions.this);
 
-            Log.d("IT", "works");
             listPoke = Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME_POKE);
             if (listPoke.length()>=4) {
                 changeAnswerList(listPoke, "id");
@@ -421,13 +405,11 @@ public class Questions extends AppCompatActivity {
 
             }
         });
-        //imageView.setImageBitmap(BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png"));
 
 
         ImageView image = (ImageView) findViewById(R.id.image_view_question);
 
-        //Bitmap bm = BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png");
-        //image.setImageBitmap(Bitmap.createScaledBitmap(bm,500,500,false));
+
 
         }
 }

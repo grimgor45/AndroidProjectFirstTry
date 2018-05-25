@@ -15,16 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
- */
+
 public class GetPokeService extends IntentService {
-    // TODO: Rename actions, choose action names that describe tasks that this
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_GET_ALL_POKE = "projetmobile.esiea.quiz.action.FOO";
 
 
@@ -49,12 +41,8 @@ public class GetPokeService extends IntentService {
         }
     }
 
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-     */
+
     private void handleActionFoo(String param1) {
-        // TODO: Handle action Foo
         Log.d("MyService", "Thread service name : "+ Thread.currentThread().getName());
         URL url = null;
         boolean downloaded = false;

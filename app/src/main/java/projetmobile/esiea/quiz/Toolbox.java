@@ -104,29 +104,7 @@ public class Toolbox  {
     }
 
 
-    //Code taken from https://stackoverflow.com/questions/8326852/how-to-delete-cache-folder-of-app
-    protected void destroyCache(Context context) {
 
-        try {
-            trimCache(context);
-            // Toast.makeText(this,"onDestroy " ,Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void trimCache(Context context) {
-        try {
-            File dir = context.getCacheDir();
-            if (dir != null && dir.isDirectory()) {
-                deleteDir(dir);
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
 
     public static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
@@ -148,6 +126,7 @@ public class Toolbox  {
 
         Intent intent = new Intent(context, BiersList.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
 

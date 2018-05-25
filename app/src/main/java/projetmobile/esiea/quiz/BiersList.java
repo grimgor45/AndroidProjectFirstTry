@@ -33,6 +33,7 @@ public class BiersList extends AppCompatActivity {
     Intent mainMenu = null;
     Toast toast;
     boolean show = true;
+    boolean down = true;
 
     public class BierUpdate extends BroadcastReceiver {
         @Override
@@ -41,12 +42,13 @@ public class BiersList extends AppCompatActivity {
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
                 ((BiersAdapter) rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFileBeer(context, JSONARRAY_NAME));
-                //Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                //toast.show();
+
                 Log.d("Download", "finished");
 
-                Toolbox.createShowNotificationDownload(getApplicationContext());
-            }
+                if (down) {
+                    down = false;
+                    Toolbox.createShowNotificationDownload(getApplicationContext());
+                }}
             else{
 
                 if(show) {
@@ -62,8 +64,7 @@ public class BiersList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumain, menu);
+        getMenuInflater().inflate(R.menu.menumainact, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -73,15 +74,6 @@ public class BiersList extends AppCompatActivity {
             case R.id.action_return:
                 startActivity(mainMenu);
                 return true;
-            case R.id.action_language:
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-                Locale locale = new Locale(pref.getString("lang_code","fr"));
-                Locale.setDefault(locale);
-                Configuration conf = getBaseContext().getResources().getConfiguration();
-                conf.locale= locale;
-                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
-
             default:
                 return super.onOptionsItemSelected(item);
 

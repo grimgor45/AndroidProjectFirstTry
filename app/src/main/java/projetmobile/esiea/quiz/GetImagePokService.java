@@ -22,16 +22,9 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Random;
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
- */
+
 public class GetImagePokService extends IntentService {
-    // TODO: Rename actions, choose action names that describe tasks that this
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
+
     private static final String ACTION_GET_IMAGE_POKE = "projetmobile.esiea.quiz.action.FOO";
     private static final String paramName = "pokeName";
 
@@ -63,12 +56,8 @@ public class GetImagePokService extends IntentService {
         }
     }
 
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-     */
+
     private void handleActionFoo(String paramPoke) {
-        // TODO: Handle action Foo
         Log.d("MyService", "Thread service name : "+ Thread.currentThread().getName());
         URL urlAPI = null;
         URL image = null;
@@ -88,7 +77,8 @@ public class GetImagePokService extends IntentService {
                 JSONObject spritesurl = jo.getJSONObject("sprites");
                 Log.d("yahou1", String.valueOf(spritesurl.length()));
                 Iterator<?> keys = spritesurl.keys();
-                while (keys.hasNext()){
+                int a=0;
+                while (keys.hasNext() && a==0){
                     String key = (String) keys.next();
                     if (spritesurl.getString(key) != "null")
                     {
@@ -97,6 +87,8 @@ public class GetImagePokService extends IntentService {
                             Log.d("yahou1.5", key);
 
                             Log.d("yahou2", spritesurl.getString(key));
+                            a=1;
+                            Log.d("yahou3", "skdf");
 
                             image = new URL(spritesurl.getString(key));
 
@@ -106,25 +98,28 @@ public class GetImagePokService extends IntentService {
                         image = imageSafe;
                     }
                 }
+                Log.d("while qui merde","failed");
+
                 if(image==null)
                 {
                     downloaded = false;
                     Log.d("downloading12","failed");
                 }
                 else{
-                    Log.d("yipi", image.toString());
+                    Log.d("poiuyt","cxopy");
+
                     HttpURLConnection conn = (HttpURLConnection) image.openConnection();
                     conn.setRequestMethod("GET");
                     conn.connect();
                     if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
                         //copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.png"));
-                        Log.d("yahalo", getCacheDir().toString());
-                        File file = new File(getCacheDir(),  paramPoke+".png");
+                        Log.d("poiuyt","cxopy");
 
-                        Log.d("estcequecamarche",getCacheDir().toString() + "/" + paramPoke+".png");
+                        File file = new File(getCacheDir(),  paramPoke+".png");
+                        Log.d("poiuyt1","cxopy");
                         copyInputStreamToFile(conn.getInputStream(), file);
 
-                        Log.d("yipi1", "copyseemstowork");
+                        Log.d("sqdqsdsd", "copyseems tospikhjfik");
                         downloaded = true;
 
 
@@ -151,6 +146,8 @@ public class GetImagePokService extends IntentService {
             e.printStackTrace();
         }
         catch (JSONException e) {
+            Log.d("laoucamarchepas", "ajh");
+
             e.printStackTrace();
         }
 
