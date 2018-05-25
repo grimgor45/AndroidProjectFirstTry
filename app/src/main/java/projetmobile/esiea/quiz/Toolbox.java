@@ -3,6 +3,8 @@ package projetmobile.esiea.quiz;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.DisplayMetrics;
@@ -17,10 +19,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Toolbox {
-    public static double ScHgt(Context context)
-    {
+    public static double ScHgt(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics display = context.getResources().getDisplayMetrics();
 
@@ -28,9 +32,9 @@ public class Toolbox {
         return height;
     }
 
-    public static JSONArray getJSONArrayFromFilePoke(Context context, String string){
-        try{
-            InputStream is = new FileInputStream(context.getCacheDir()+"/"+string);
+    public static JSONArray getJSONArrayFromFilePoke(Context context, String string) {
+        try {
+            InputStream is = new FileInputStream(context.getCacheDir() + "/" + string);
             byte[] buffer = new byte[is.available()];
 
 
@@ -38,7 +42,7 @@ public class Toolbox {
 
             is.close();
 
-            String lol = new String (buffer, "UTF-8");
+            String lol = new String(buffer, "UTF-8");
 
             JSONObject jo = new JSONObject(lol);
 
@@ -46,36 +50,47 @@ public class Toolbox {
 
 
             return ja;
-        }catch (IOException e){
+        } catch (IOException e) {
             return new JSONArray();
-        }catch (JSONException e){
+        } catch (JSONException e) {
             return new JSONArray();
         }
     }
 
-    public static JSONArray getJSONArrayFromFileBeer(Context context, String string){
-        try{
-            InputStream is = new FileInputStream(context.getCacheDir()+"/"+string);
-            Log.d("ho1","hey1");
+    public static JSONObject getJSONObjectFromFile(Context context, String string) {
+        try {
+            InputStream is = new FileInputStream(context.getCacheDir() + "/" + string);
             byte[] buffer = new byte[is.available()];
-            Log.d("ho2",String.valueOf(is.available()));
-            Log.d("ho2",String.valueOf(buffer.length));
+            Log.d("hey", String.valueOf(is.available()));
             is.read(buffer);
-            Log.d("ho3","hey3");
             is.close();
-            JSONArray ja = new JSONArray(new String(buffer, "UTF-8"));
-            Log.d("ho5","hey5");
+            JSONObject ja = new JSONObject(new String(buffer, "UTF-8"));
 
             return ja;
-        }catch (IOException e){
+        } catch (IOException e) {
+            return new JSONObject();
+        } catch (JSONException e) {
+            return new JSONObject();
+        }
+    }
+    public static JSONArray getJSONArrayFromFileBeer(Context context, String string) {
+        try {
+            InputStream is = new FileInputStream(context.getCacheDir() + "/" + string);
+            byte[] buffer = new byte[is.available()];
+            is.read(buffer);
+            is.close();
+            JSONArray ja = new JSONArray(new String(buffer, "UTF-8"));
+
+            return ja;
+        } catch (IOException e) {
             return new JSONArray();
-        }catch (JSONException e){
+        } catch (JSONException e) {
             return new JSONArray();
         }
     }
 
 
-        //Code taken from https://stackoverflow.com/questions/8326852/how-to-delete-cache-folder-of-app
+    //Code taken from https://stackoverflow.com/questions/8326852/how-to-delete-cache-folder-of-app
     protected void destroyCache(Context context) {
 
         try {
@@ -134,5 +149,6 @@ public class Toolbox {
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(MainActivity.notificationId, mBuilder.build());
     }
+
 
 }

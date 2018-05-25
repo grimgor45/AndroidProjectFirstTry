@@ -5,6 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -12,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +25,16 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     int a = 121;
     String b = ((Integer)a).toString();
     public static String CHANNEL_ID = "projetmobile.esiea.quiz.NOTIFICATION";
     public static int notificationId = 42;
+    static public boolean freng = true;
+
 
     //Channel
     //code taken from https://developer.android.com/training/notify-user/build-notification
@@ -50,12 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumain, menu);
+        getMenuInflater().inflate(R.menu.menumainact, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -63,9 +69,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_return:
+            case R.id.action_language:
+                String yeah = Locale.getDefault().getLanguage();
+                Log.d("hey", yeah);
+                Locale myLocale = new Locale("fr".toLowerCase());
+                Resources res = getResources();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Configuration conf = res.getConfiguration();
+                conf.locale = myLocale;
+                res.updateConfiguration(conf, dm);
+                Intent refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+                finish();
+                String yeah1 = Locale.getDefault().getLanguage();
+                Log.d("hey1", yeah1);
+
                 return true;
-            default:
+                default:
                 return super.onOptionsItemSelected(item);
 
         }
@@ -77,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         ScrollView myScrollView = (ScrollView) findViewById(R.id.mainMenuScrollView);
         myScrollView.getLayoutParams().height = ((int) Toolbox.ScHgt(this)-250);
@@ -95,12 +116,14 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent aQuizz = new Intent(this, Questions.class);
 
+        final Intent imageTest = new Intent(this, ActivityTest.class);
+
         Button Quizz = (Button)findViewById(R.id.Quizz);
         Quizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aQuizz.putExtra("TYPEQUIZZ", 1);
-                startActivity(aQuizz);
+                aQuizz.putExtra("TYPEQUIZZ", QuestionsType.PokemonSprits.ordinal());
+                startActivity(aQuizz);//imageTest
             }
         });
 

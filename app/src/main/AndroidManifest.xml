@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="projetmobile.esiea.quiz">
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -26,12 +26,19 @@
             android:exported="false" />
 
         <activity android:name=".BiersList" />
-
+        android:configChanges="locale"
         <service
             android:name=".GetPokeService"
             android:exported="false" />
 
-        <activity android:name=".PokeList"></activity>
+        <activity android:name=".PokeList" />
+        <activity android:name=".ActivityTest" />
+
+
+        <service
+            android:name=".GetImagePokeService"
+            android:exported="false" />
+
     </application>
 
 </manifest>
