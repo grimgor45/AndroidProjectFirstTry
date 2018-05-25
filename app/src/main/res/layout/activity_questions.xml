@@ -23,6 +23,11 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/Problem"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/QuizzQuestionText"
+                android:id="@+id/image_view_question"/>
         </RelativeLayout>
     </ScrollView>
 

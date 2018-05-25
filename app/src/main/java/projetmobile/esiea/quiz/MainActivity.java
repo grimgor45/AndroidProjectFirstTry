@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
         Quizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aQuizz.putExtra("TYPEQUIZZ", 1);
-                startActivity(imageTest);//imageTest
+                aQuizz.putExtra("TYPEQUIZZ", QuestionsType.PokemonSprits.ordinal());
+                startActivity(aQuizz);//imageTest
             }
         });
 

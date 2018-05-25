@@ -99,7 +99,7 @@ public class GetImagePokeService extends IntentService {
 
                         }
                     }
-                    if (!keys.hasNext() && image.toString() == null){
+                    if (!keys.hasNext() && image == null){
                         Iterator<?> keys1 = spritesurl.keys();
                         while (keys.hasNext()){
                             String key1 = (String) keys1.next();
@@ -111,6 +111,12 @@ public class GetImagePokeService extends IntentService {
                         }
                     }
                 }
+                if(image==null)
+                {
+                    downloaded = false;
+                    Log.d("downloading","failed");
+                }
+                else{
                 Log.d("yipi", image.toString());
                 HttpURLConnection conn = (HttpURLConnection) image.openConnection();
                 conn.setRequestMethod("GET");
@@ -126,12 +132,15 @@ public class GetImagePokeService extends IntentService {
 
                 }
 
-            }
+            }}
             else{
                 downloaded = false;
                 Log.d("downloading","failed");
 
             }
+            Intent broadcastedIntent=new Intent(Questions.POKE_IMAGE_UPADTE);
+            broadcastedIntent.putExtra("VALUE", downloaded);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
 
         }
         catch(MalformedURLException e){
