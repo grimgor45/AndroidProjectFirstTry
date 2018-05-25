@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         Quizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aQuizz.putExtra("TYPEQUIZZ", QuestionsType.PokemonSprits.ordinal());
+                aQuizz.putExtra("TYPEQUIZZ", QuestionsType.pokemonorbeer.ordinal());
                 startActivity(aQuizz);//imageTest
             }
         });

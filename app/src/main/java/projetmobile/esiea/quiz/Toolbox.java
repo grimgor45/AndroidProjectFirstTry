@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
+import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -30,6 +31,18 @@ public class Toolbox {
 
         int height = display.heightPixels;
         return height;
+    }
+
+    public static String getRandomElementName(JSONArray ja)
+    {
+        Random rand = new Random();
+        String name = null;
+        try {
+            name = ja.getJSONObject(rand.nextInt()%ja.length()).getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return name;
     }
 
     public static JSONArray getJSONArrayFromFilePoke(Context context, String string) {

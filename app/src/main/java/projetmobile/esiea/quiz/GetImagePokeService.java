@@ -71,6 +71,7 @@ public class GetImagePokeService extends IntentService {
         Log.d("MyService", "Thread service name : "+ Thread.currentThread().getName());
         URL urlAPI = null;
         URL image = null;
+        URL imageSafe = null;
         boolean downloaded = false;
         try{
             Random rand = new Random();
@@ -90,6 +91,7 @@ public class GetImagePokeService extends IntentService {
                     String key = (String) keys.next();
                     if (spritesurl.getString(key) != "null")
                     {
+                        imageSafe = new URL(spritesurl.getString(key));
                         if(rand.nextBoolean()){
                             Log.d("yahou1.5", key);
 
@@ -100,21 +102,13 @@ public class GetImagePokeService extends IntentService {
                         }
                     }
                     if (!keys.hasNext() && image == null){
-                        Iterator<?> keys1 = spritesurl.keys();
-                        while (keys.hasNext()){
-                            String key1 = (String) keys1.next();
-                            if (spritesurl.getString(key1) !=null)
-                            {
-                                    image = new URL(spritesurl.getString(key1));
-
-                            }
-                        }
+                        image = imageSafe;
                     }
                 }
                 if(image==null)
                 {
                     downloaded = false;
-                    Log.d("downloading","failed");
+                    Log.d("downloading12","failed");
                 }
                 else{
                 Log.d("yipi", image.toString());
@@ -129,6 +123,8 @@ public class GetImagePokeService extends IntentService {
                     copyInputStreamToFile(conn.getInputStream(), file);
 
                     Log.d("yipi1", "copyseemstowork");
+                    downloaded = true;
+
 
                 }
 
