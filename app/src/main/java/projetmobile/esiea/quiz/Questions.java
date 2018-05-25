@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.LocalBroadcastManager;
@@ -14,8 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,14 +24,13 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Locale;
 import java.util.Random;
 
 public class Questions extends AppCompatActivity {
 
     public AnswerList aL;
     public int score;
-    public int actualScore;
+    public int actualScore=1;
     JSONArray listBeer;
     JSONArray listPoke;
     private final String JSONARRAY_NAME_BEER =  "bieres.json";
@@ -45,49 +40,12 @@ public class Questions extends AppCompatActivity {
     private String correctDownloadToast = "Correctly downloaded";
     private String incorrectDownloadToast = "Download Failed please enable wifi";
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
-    Button A1;
-    Button A2;
-    Button A3;
-    Button A4;
-    Intent mainMenu = null;
-    Random rand;
-    Boolean beerPoke = true;
 
 
     public static final String POKE_IMAGE_UPADTE= "projetmobile.esiea.quiz.POKE_UPDATE";
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumain, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_return:
-                startActivity(mainMenu);
-                return true;
-            case R.id.action_language:
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-                Locale locale = new Locale(pref.getString("lang_code","fr"));
-                Locale.setDefault(locale);
-                Configuration conf = getBaseContext().getResources().getConfiguration();
-                conf.locale= locale;
-                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
 
     public class ImageUpadte extends BroadcastReceiver {
-
-
-
         @Override
         public void onReceive(Context context, Intent intent) {
             ImageView iv = findViewById(R.id.image_view_question);
@@ -100,17 +58,8 @@ public class Questions extends AppCompatActivity {
                 Log.d("lelol", "finished");
 
                 Toolbox.createShowNotificationDownload(getApplicationContext());
-                A1.setEnabled(true);
-                A2.setEnabled(true);
-                A3.setEnabled(true);
-                A4.setEnabled(true);
             }
             else{
-                try {
-                    GetImagePokeService.startActionGetImagePoke(context, aL.objList[aL.correct-1].getString("name"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
                 toast.show();
                 Log.d("Download", "failed");
@@ -123,61 +72,20 @@ public class Questions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        mainMenu = new Intent(this, MainActivity.class);
-
+        final Intent mainMenu = new Intent(this, MainActivity.class);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
-        rand = new Random();
-
-        int scrollViewHeight = (int)Toolbox.ScHgt(this)/4;
+       /* int scrollViewHeight = (int)Toolbox.ScHgt(this)/4;
         ScrollView scrollView = (ScrollView) findViewById(R.id.ScrollViewDescriptionBeer);
-        scrollView.getLayoutParams().height = scrollViewHeight;
+        scrollView.getLayoutParams().height = scrollViewHeight;*/
 
 
         IntentFilter intentFilter = new IntentFilter(POKE_IMAGE_UPADTE);
         LocalBroadcastManager.getInstance(this).registerReceiver(new Questions.ImageUpadte(),intentFilter);
 
-        A1 = (Button)findViewById(R.id.Answer1);
-        A1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manageAnswerButton(1);
-            }
-        });
-        A2 = (Button)findViewById(R.id.Answer2);
-        A2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manageAnswerButton(2);
-            }
-        });
         typequizz = getIntent().getIntExtra("TYPEQUIZZ",QuestionsType.beerDescription.ordinal());
-
-
-
-        A3 = (Button)findViewById(R.id.Answer3);
-        A3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manageAnswerButton(3);
-            }
-        });
-        A4 = (Button)findViewById(R.id.Answer4);
-        A4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manageAnswerButton(4);
-            }
-        });
-        if(typequizz== QuestionsType.pokemonorbeer.ordinal()){
-            A1.setText("beer");
-            A2.setText("poke");
-            ImageView iv = (ImageView) findViewById(R.id.image_view_question);
-            iv.setVisibility(ImageView.INVISIBLE);
-        }
-
         if(typequizz == QuestionsType.beerDescription.ordinal()) {
             GetBiersService.startActionGetAllBiers(Questions.this);
 
@@ -197,26 +105,6 @@ public class Questions extends AppCompatActivity {
                 changeAnswerList(listPoke, "id");
             }
         }
-        if(typequizz == QuestionsType.pokemonorbeer.ordinal())
-        {
-            GetBiersService.startActionGetAllBiers(Questions.this);
-            GetPokeService.startActionGetAllPok(Questions.this);
-            listBeer = Toolbox.getJSONArrayFromFileBeer(this, JSONARRAY_NAME_BEER);
-            listPoke = Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME_POKE);
-            beerPoke = rand.nextBoolean();
-            TextView tv = (TextView) findViewById(R.id.QuizzQuestionText);
-            if (beerPoke)
-            {
-
-
-                tv.setText(Toolbox.getRandomElementName(listBeer));
-            }
-            else{
-                tv.setText(Toolbox.getRandomElementName(listPoke));
-            }
-
-
-        }
 
 
 
@@ -225,27 +113,47 @@ public class Questions extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (typequizz == QuestionsType.beerDescription.ordinal()) {
+                if (typequizz == 0) {
                     if (listBeer.length() >= 4) {
                         changeAnswerList(listBeer, "description");
                     }
                 }
-                if (typequizz == QuestionsType.PokemonSprits.ordinal()){
+                if (typequizz == 1){
                     if(listPoke.length()>=4){
-                        try {
-                            loadNextImage(aL.objList[aL.correct-1].getString("name"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        changeAnswerList(listPoke, valueQuestion);
                     }
-                }
-                if(typequizz == QuestionsType.pokemonorbeer.ordinal()){
-                    GetBiersService.startActionGetAllBiers(Questions.this);
-                    GetPokeService.startActionGetAllPok(Questions.this);
                 }
             }
         });
 
+        Button A1 = (Button)findViewById(R.id.Answer1);
+        A1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manageAnswerButton(1);
+            }
+        });
+        Button A2 = (Button)findViewById(R.id.Answer2);
+        A2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manageAnswerButton(2);
+            }
+        });
+        Button A3 = (Button)findViewById(R.id.Answer3);
+        A3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manageAnswerButton(3);
+            }
+        });
+        Button A4 = (Button)findViewById(R.id.Answer4);
+        A4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manageAnswerButton(4);
+            }
+        });
 
 
 
@@ -266,7 +174,7 @@ public class Questions extends AppCompatActivity {
         final Intent quitToMainAct = new Intent(this, MainActivity.class);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Add the buttons
-        builder.setMessage("This will end the activity");
+        builder.setMessage("This will end the quiz");
 
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -282,29 +190,8 @@ public class Questions extends AppCompatActivity {
 
     }
 
-
     private void manageAnswerButton(int id){
-        if(typequizz == QuestionsType.pokemonorbeer.ordinal())
-        {
-            if (id == 1 &&  beerPoke){
-                score++;
-            }
-            if (id == 1 && !beerPoke){
-
-            }
-            if(id == 2 && beerPoke){
-
-            }
-            if(id == 2 && !beerPoke){
-                score++;
-            }
-            actualScore++;
-            ((TextView)findViewById(R.id.Score)).setText(((Integer)score).toString());
-            ((TextView)findViewById(R.id.ActualScore)).setText(((Integer)actualScore).toString());
-            changeAnswerList(null, null);
-        }
-        else{
-            if (aL.correct ==id)
+        if (aL.correct ==id)
         {
             score++;
             Context context = getApplicationContext();
@@ -335,36 +222,14 @@ public class Questions extends AppCompatActivity {
         }
         if(typequizz == QuestionsType.PokemonSprits.ordinal()){
             changeAnswerList(listPoke, valueQuestion);
-        }}
+        }
     }
 
     private void changeAnswerList(JSONArray list, String JSONValueQestion){
-        if(typequizz == QuestionsType.pokemonorbeer.ordinal())
-        {
-
-            listBeer = Toolbox.getJSONArrayFromFileBeer(this, JSONARRAY_NAME_BEER);
-            listPoke = Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME_POKE);
-            beerPoke = rand.nextBoolean();
-            TextView tv = (TextView) findViewById(R.id.QuizzQuestionText);
-            if (beerPoke)
-            {
-                tv.setText(Toolbox.getRandomElementName(listBeer));
-            }
-            else{
-                tv.setText(Toolbox.getRandomElementName(listPoke));
-            }
-        }
-        else{
-            aL = AnswerList.getInstance(list);
-
-        }
+        aL = AnswerList.getInstance(list);
 
         if (typequizz == QuestionsType.PokemonSprits.ordinal()) {
             try {
-                A1.setEnabled(false);
-                A2.setEnabled(false);
-                A3.setEnabled(false);
-                A4.setEnabled(false);
                 TextView tv = (TextView) findViewById(R.id.QuizzQuestionText);
                 tv.setVisibility(TextView.INVISIBLE);
                 loadNextImage(aL.objList[aL.correct-1].getString("name"));
@@ -383,7 +248,7 @@ public class Questions extends AppCompatActivity {
             }
         }
 
-        if(typequizz != QuestionsType.pokemonorbeer.ordinal()){
+
         try {
             ((Button)findViewById(R.id.Answer1)).setText(aL.objList[0].getString("name"));
             ((Button)findViewById(R.id.Answer2)).setText(aL.objList[1].getString("name"));
@@ -392,7 +257,7 @@ public class Questions extends AppCompatActivity {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }}
+        }
     }
 
     private void loadNextImage( String name){

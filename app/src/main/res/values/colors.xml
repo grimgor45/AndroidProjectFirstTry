@@ -6,4 +6,9 @@
     <color name="BlackRed">#330000</color>
     <color name="LightBlue">#6699FF</color>
     <color name="HeavyRed">#CF001D</color>
+    <color name="Green">#04B404</color>
+    <color name="Gold">#BFBF00</color>
+    <color name="LightRed">#F78181</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Red">#FF0000</color>
 </resources>
