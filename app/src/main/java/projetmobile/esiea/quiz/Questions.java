@@ -196,6 +196,9 @@ public class Questions extends AppCompatActivity {
         }
         if(typequizz == QuestionsType.pokemonorbeer.ordinal())
         {
+            ImageView iv = findViewById(R.id.image_view_question);
+            iv.setVisibility(ImageView.INVISIBLE);
+
             GetBiersService.startActionGetAllBiers(Questions.this);
             GetPokeService.startActionGetAllPok(Questions.this);
             listBeer = Toolbox.getJSONArrayFromFileBeer(this, JSONARRAY_NAME_BEER);
