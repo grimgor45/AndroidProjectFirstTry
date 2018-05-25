@@ -1,11 +1,17 @@
 package projetmobile.esiea.quiz;
 
+import android.app.SearchManager;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -41,8 +47,24 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
 
         try{
             JSONObject jo = poke.getJSONObject(position);
-            String name = jo.getString("name")+" name : "+jo.getString("name");
+
+            final String name = jo.getString("name");
+
+            GetImagePokeService.startActionGetImagePoke(holder.name.getContext(), name);
+
             holder.name.setText(name);
+
+            holder.name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                    String keyword= name;
+                    intent.putExtra(SearchManager.QUERY, keyword+" pokemon");
+                    v.getContext().startActivity(intent);
+                }
+            });
+            Bitmap bm = BitmapFactory.decodeFile(MainActivity.cacheDir + "/" + "pokeImage.png");
+            holder.iv.setImageBitmap(Bitmap.createScaledBitmap(bm,100,100,false));
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -56,11 +78,13 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
 
     class PokeHolder extends RecyclerView.ViewHolder{
 
-        public TextView name;
+        public Button name;
+        public ImageView iv;
 
         public PokeHolder(View itemView) {
             super(itemView);
-            name = ((TextView)itemView.findViewById(R.id.rv_poke_element_name));
+            name = ((Button)itemView.findViewById(R.id.rv_poke_element_name));
+            iv = (ImageView) itemView.findViewById(R.id.rv_iv);
         }
     }
 

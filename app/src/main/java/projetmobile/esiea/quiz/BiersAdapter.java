@@ -1,15 +1,21 @@
 package projetmobile.esiea.quiz;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.support.v4.content.ContextCompat.startActivity;
+
 
 public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder> {
 
@@ -40,8 +46,19 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder> 
 
         try{
             JSONObject jo = biers.getJSONObject(position);
-            String name = jo.getString("name")+" Description : "+jo.getString("description");
+            final String na =jo.getString("name");
+            String name = na+" Description : "+jo.getString("description");
+
             holder.name.setText(name);
+            holder.name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                    String keyword= na;
+                    intent.putExtra(SearchManager.QUERY, keyword+" beer");
+                    v.getContext().startActivity(intent);
+                }
+            });
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -54,11 +71,11 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder> 
 
     class BierHolder extends RecyclerView.ViewHolder{
 
-        public TextView name;
+        public Button name;
 
         public BierHolder(View itemView) {
             super(itemView);
-            name = ((TextView)itemView.findViewById(R.id.rv_bier_element_name));
+            name = ((Button)itemView.findViewById(R.id.rv_bier_element_name));
         }
     }
 
