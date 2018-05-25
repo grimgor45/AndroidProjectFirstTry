@@ -86,7 +86,7 @@ public class Questions extends AppCompatActivity {
             if (downloaded) {
                 Bitmap bm = BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png");
                 iv.setImageBitmap(Bitmap.createScaledBitmap(bm,500,500,false));
-
+                iv.setVisibility(View.VISIBLE);
 
                 A1.setEnabled(true);
                 A2.setEnabled(true);
@@ -129,6 +129,9 @@ public class Questions extends AppCompatActivity {
 
         IntentFilter intentFilter = new IntentFilter(POKE_IMAGE_UPADTE);
         LocalBroadcastManager.getInstance(this).registerReceiver(new Questions.ImageUpadte(),intentFilter);
+
+        ImageView imv = findViewById(R.id.image_view_question);
+        imv.setVisibility(ImageView.INVISIBLE);
 
         A1 = (Button)findViewById(R.id.Answer1);
         A1.setOnClickListener(new View.OnClickListener() {
@@ -395,23 +398,7 @@ public class Questions extends AppCompatActivity {
 
         GetImagePokeService.startActionGetImagePoke(this, name);
 
-        File[] file = getCacheDir().listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                if (name.equals("pokeImage.png")){
-                    return true;
-                }
-                return false;
-
-            }
-        });
-
-
-        ImageView image = (ImageView) findViewById(R.id.image_view_question);
-
-
-
-        }
+    }
 }
 
 

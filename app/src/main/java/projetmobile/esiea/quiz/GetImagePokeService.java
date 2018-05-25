@@ -43,7 +43,6 @@ public class GetImagePokeService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d("downloading1","poke");
 
         if (intent != null) {
             boolean downloaded = false;
@@ -70,13 +69,11 @@ public class GetImagePokeService extends IntentService {
             con.connect();
 
             if (HttpURLConnection.HTTP_OK == con.getResponseCode()){
-                Log.d("yahou1", "");
 
                 copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.json"));
                 JSONObject jo = Toolbox.getJSONObjectFromFile(this, "pokeImage.json");
 
                 JSONObject spritesurl = jo.getJSONObject("sprites");
-                Log.d("yahou1", String.valueOf(spritesurl.length()));
                 Iterator<?> keys = spritesurl.keys();
                 while (keys.hasNext()){
                     String key = (String) keys.next();
@@ -84,9 +81,7 @@ public class GetImagePokeService extends IntentService {
                     {
                         imageSafe = new URL(spritesurl.getString(key));
                         if(rand.nextBoolean()){
-                            Log.d("yahou1.5", key);
 
-                            Log.d("yahou2", spritesurl.getString(key));
 
                             image = new URL(spritesurl.getString(key));
 
@@ -99,21 +94,17 @@ public class GetImagePokeService extends IntentService {
                 if(image==null)
                 {
                     downloaded = false;
-                    Log.d("downloading12","failed");
                 }
                 else{
-                Log.d("yipi", image.toString());
                 HttpURLConnection conn = (HttpURLConnection) image.openConnection();
                 conn.setRequestMethod("GET");
                 conn.connect();
                 if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
                     //copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.png"));
-                    Log.d("yahalo", getCacheDir().toString());
                     File file = new File(getCacheDir(), "pokeImage.png");
 
                     copyInputStreamToFile(conn.getInputStream(), file);
 
-                    Log.d("yipi1", "copyseemstowork");
                     downloaded = true;
 
 
@@ -122,7 +113,6 @@ public class GetImagePokeService extends IntentService {
             }}
             else{
                 downloaded = false;
-                Log.d("downloading","failed");
 
             }
 
