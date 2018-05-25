@@ -118,15 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent imageTest = new Intent(this, ActivityTest.class);
 
-        Button Quizz = (Button)findViewById(R.id.Quizz);
-        Quizz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                aQuizz.putExtra("TYPEQUIZZ", QuestionsType.pokemonorbeer.ordinal());
-                startActivity(aQuizz);//imageTest
-            }
-        });
-
         final Intent BiersList = new Intent(this, BiersList.class);
 
         Button BiersListButton = (Button)findViewById(R.id.BiersList);

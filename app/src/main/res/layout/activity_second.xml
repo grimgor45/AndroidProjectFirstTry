@@ -32,7 +32,7 @@
         android:id="@+id/Theme1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/PickTheme"
         android:src="@drawable/pokebutton"
@@ -42,10 +42,20 @@
         android:id="@+id/Theme2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/Theme1"
         android:src="@drawable/beerbutton"
+        android:padding="0dp"/>
+
+    <ImageButton
+        android:id="@+id/Theme3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/Theme2"
+        android:src="@drawable/pokebeer"
         android:padding="0dp"/>
 
     <RelativeLayout

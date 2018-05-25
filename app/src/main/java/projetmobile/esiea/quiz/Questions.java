@@ -107,11 +107,7 @@ public class Questions extends AppCompatActivity {
                 A4.setEnabled(true);
             }
             else{
-                try {
-                    GetImagePokeService.startActionGetImagePoke(context, aL.objList[aL.correct-1].getString("name"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                
                 Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
                 toast.show();
                 Log.d("Download", "failed");
@@ -410,17 +406,14 @@ public class Questions extends AppCompatActivity {
 
             }
         });
-        Log.d("hihihi",String.valueOf(file[0].getTotalSpace()));
         //imageView.setImageBitmap(BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png"));
 
 
         ImageView image = (ImageView) findViewById(R.id.image_view_question);
-        Log.d("hihihi1",String.valueOf(file[0].getTotalSpace()));
 
         //Bitmap bm = BitmapFactory.decodeFile(getCacheDir() + "/" + "pokeImage.png");
         //image.setImageBitmap(Bitmap.createScaledBitmap(bm,500,500,false));
 
-        Log.d("hihihi2",String.valueOf(file[0].getTotalSpace()));
         }
 }
 

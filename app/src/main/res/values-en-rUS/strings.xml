@@ -4,7 +4,6 @@
     <string name="Introduction">The ultimate test to your knowledge !</string>
     <string name="ButtonSecondAct">PLAY !</string>
     <string name="Problem">Please load</string>
-    <string name="ButtonBiersList">BiersList</string>
     <string name="pokemon">Pokemons</string>
     <string name="beers">Beers</string>
     <string name="PickTheme">Pick your quiz's theme</string>
@@ -13,4 +12,6 @@
     <string name="Question">Question :</string>
     <string name="Load">Load</string>
     <string name="Quit">Quit</string>
+    <string name="Pokelist">Who\'s that pokemon?</string>
+    <string name="Beerlist">Who\'s that beer?</string>
 </resources>
