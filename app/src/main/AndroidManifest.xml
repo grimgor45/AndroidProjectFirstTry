@@ -34,7 +34,6 @@
             android:exported="false" />
 
         <activity android:name=".PokeList" />
-        <activity android:name=".ActivityTest" />
 
 
         <service

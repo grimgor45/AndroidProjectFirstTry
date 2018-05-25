@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent aQuizz = new Intent(this, Questions.class);
 
-        final Intent imageTest = new Intent(this, ActivityTest.class);
 
         final Intent BiersList = new Intent(this, BiersList.class);
 
