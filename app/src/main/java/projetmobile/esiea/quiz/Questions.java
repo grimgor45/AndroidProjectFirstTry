@@ -52,6 +52,7 @@ public class Questions extends AppCompatActivity {
     Intent mainMenu = null;
     Random rand;
     Boolean beerPoke = true;
+    public String hey;
 
 
     public static final String POKE_IMAGE_UPADTE= "projetmobile.esiea.quiz.POKE_UPDATE";
