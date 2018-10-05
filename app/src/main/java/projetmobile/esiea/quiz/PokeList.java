@@ -79,6 +79,7 @@ public class PokeList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("estcequecamarcheqsdqsd1", "surementckhqgsdkujhiqsdjhk;gv");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poke_list);
 
@@ -89,6 +90,7 @@ public class PokeList extends AppCompatActivity {
         toast = Toast.makeText(this, incorrectDownloadToast, toastDuration);
 
         mainMenu = new Intent(this, MainActivity.class);
+        Log.d("estcequecamarcheqsdqsd1", "surementckhqgsdkujhiqsdjhk;gv");
 
         GetPokeService.startActionGetAllPok(PokeList.this);
 

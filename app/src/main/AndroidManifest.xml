@@ -39,6 +39,9 @@
         <service
             android:name=".GetImagePokeService"
             android:exported="false" />
+        <service
+            android:name=".GetImagePokService"
+            android:exported="false" />
 
     </application>
 

@@ -53,8 +53,7 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
             JSONObject jo = poke.getJSONObject(position);
 
             final String name = jo.getString("name");
-
-            GetImagePokService.startActionGetImagePoke(holder.name.getContext(), name);
+            GetImagePokService.startActionGetImagePok(context, name);
 
             holder.name.setText(name);
 
@@ -68,10 +67,8 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
                 }
             });
             String path = context.getCacheDir().toString() + "/" + name+".png";
-            Log.d("estcequecamarche1", path);
             File file = new File(path);
             if(file.exists()){
-                Log.d("yahouloula", "hih");
                 Bitmap bm = BitmapFactory.decodeFile(path);
                 holder.iv.setImageBitmap(Bitmap.createScaledBitmap(bm,100,100,false));
             }
@@ -83,7 +80,6 @@ public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.PokeHolder> {
 
     @Override
     public int getItemCount() {
-        Log.d("pokeLength ", String.valueOf(poke.length()));
         return poke.length();
     }
 
