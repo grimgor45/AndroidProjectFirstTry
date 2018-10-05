@@ -86,7 +86,7 @@ public class GetImagePokService extends IntentService {
                         if(rand.nextBoolean()){
                             Log.d("yahou1.5", key);
 
-                            Log.d("yahou2", spritesurl.getString(key));
+                            //Log.d("yahou2", spritesurl.getString(key));
                             a=1;
                             Log.d("yahou3", "skdf");
 
