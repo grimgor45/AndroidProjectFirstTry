@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "channel";
-            String description = "bestChannel ever";
+            CharSequence name = "dlchannel";
+            String description = "Channel for download";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
@@ -57,39 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumainact, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_language:
-                String yeah = Locale.getDefault().getLanguage();
-                Log.d("hey", yeah);
-                Locale myLocale = new Locale("fr".toLowerCase());
-                Resources res = getResources();
-                DisplayMetrics dm = res.getDisplayMetrics();
-                Configuration conf = res.getConfiguration();
-                conf.locale = myLocale;
-                res.updateConfiguration(conf, dm);
-                Intent refresh = new Intent(this, MainActivity.class);
-                startActivity(refresh);
-                finish();
-                String yeah1 = Locale.getDefault().getLanguage();
-                Log.d("hey1", yeah1);
-
-                return true;
-                default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,16 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent aQuizz = new Intent(this, Questions.class);
 
-        final Intent imageTest = new Intent(this, ActivityTest.class);
-
-        Button Quizz = (Button)findViewById(R.id.Quizz);
-        Quizz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                aQuizz.putExtra("TYPEQUIZZ", QuestionsType.pokemonorbeer.ordinal());
-                startActivity(aQuizz);//imageTest
-            }
-        });
 
         final Intent BiersList = new Intent(this, BiersList.class);
 

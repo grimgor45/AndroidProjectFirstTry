@@ -36,9 +36,11 @@
 
                 <Button
                     android:id="@+id/ButtonSecondActivity"
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
+                    android:layout_width="180dp"
+                    android:layout_height="70dp"
+                    android:textSize="30dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/Intro"
                     android:background="@color/HeavyRed"
@@ -53,25 +55,24 @@
                     android:src="@mipmap/quiz_iconn" />
 
                 <Button
-                    android:id="@+id/Quizz"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ButtonSecondActivity"
-                    android:text="quizz"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginRight="20dp"
                     android:id="@+id/BiersList"
-                    android:text="@string/ButtonBiersList"
-                    android:layout_below="@+id/Quizz"/>
+                    android:text="@string/Beerlist"
+                    android:layout_below="@+id/ButtonSecondActivity"/>
 
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/colorPrimary"
                     android:id="@+id/PokeList"
-                    android:text="PokeList"
-                    android:layout_below="@+id/BiersList"/>
+                    android:text="@string/Pokelist"
+                    android:layout_below="@+id/ButtonSecondActivity"/>
 
 
 

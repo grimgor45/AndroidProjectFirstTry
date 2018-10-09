@@ -27,10 +27,13 @@ public class BiersList extends AppCompatActivity {
 
     public static final String BIERS_UPDATE = "projetmobile.esiea.quiz.BIERS_UPDATE";
 
-    private String correctDownloadToast = "Correctly downloaded";
-    private String incorrectDownloadToast = "Download Failed please enable wifi";
+    private String correctDownloadToast;
+    private String incorrectDownloadToast ;
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
     Intent mainMenu = null;
+    Toast toast;
+    boolean show = true;
+    boolean down = true;
 
     public class BierUpdate extends BroadcastReceiver {
         @Override
@@ -39,15 +42,19 @@ public class BiersList extends AppCompatActivity {
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
                 ((BiersAdapter) rv.getAdapter()).setNewBiers(Toolbox.getJSONArrayFromFileBeer(context, JSONARRAY_NAME));
-                Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                toast.show();
+
                 Log.d("Download", "finished");
 
-                Toolbox.createShowNotificationDownload(getApplicationContext());
-            }
+                if (down) {
+                    down = false;
+                    Toolbox.createShowNotificationDownload(getApplicationContext());
+                }}
             else{
-                Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
-                toast.show();
+
+                if(show) {
+                    show =false;
+                    toast.show();
+                }
                 Log.d("Download", "failed");
 
             }
@@ -57,8 +64,7 @@ public class BiersList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumain, menu);
+        getMenuInflater().inflate(R.menu.menumainact, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -68,15 +74,6 @@ public class BiersList extends AppCompatActivity {
             case R.id.action_return:
                 startActivity(mainMenu);
                 return true;
-            case R.id.action_language:
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-                Locale locale = new Locale(pref.getString("lang_code","fr"));
-                Locale.setDefault(locale);
-                Configuration conf = getBaseContext().getResources().getConfiguration();
-                conf.locale= locale;
-                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
-
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -86,10 +83,13 @@ public class BiersList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biers_list);
         mainMenu = new Intent(this, MainActivity.class);
-
+        correctDownloadToast = getString(R.string.Downloadsuccess);
+        incorrectDownloadToast = getString(R.string.DownloadFailed);
+        toast = Toast.makeText(this, incorrectDownloadToast, toastDuration);
 
         GetBiersService.startActionGetAllBiers(BiersList.this);
 

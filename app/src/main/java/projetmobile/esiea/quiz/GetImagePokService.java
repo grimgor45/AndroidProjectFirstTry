@@ -23,17 +23,18 @@ import java.util.Iterator;
 import java.util.Random;
 
 
-public class GetImagePokeService extends IntentService {
+public class GetImagePokService extends IntentService {
 
     private static final String ACTION_GET_IMAGE_POKE = "projetmobile.esiea.quiz.action.FOO";
     private static final String paramName = "pokeName";
 
-    public GetImagePokeService() {
+    public GetImagePokService() {
         super("GetImagePokeService");
     }
 
 
     public static void startActionGetImagePoke(Context context, String pokeName) {
+        Log.d("estcequecamarche", "123300");
         Intent intent = new Intent(context, GetImagePokeService.class);
         intent.setAction(ACTION_GET_IMAGE_POKE);
         intent.putExtra(paramName, pokeName);
@@ -43,19 +44,20 @@ public class GetImagePokeService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.d("downloading1","poke");
 
         if (intent != null) {
-            boolean downloaded = false;
             final String action = intent.getAction();
             if (ACTION_GET_IMAGE_POKE.equals(action)) {
                 final String param1 = intent.getStringExtra(paramName);
-                 handleActionFoo(param1);
+
+                handleActionFoo(param1);
             }
         }
     }
 
+
     private void handleActionFoo(String paramPoke) {
-        // TODO: Handle action Foo
         Log.d("MyService", "Thread service name : "+ Thread.currentThread().getName());
         URL urlAPI = null;
         URL image = null;
@@ -69,19 +71,24 @@ public class GetImagePokeService extends IntentService {
             con.connect();
 
             if (HttpURLConnection.HTTP_OK == con.getResponseCode()){
-
                 copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.json"));
                 JSONObject jo = Toolbox.getJSONObjectFromFile(this, "pokeImage.json");
 
                 JSONObject spritesurl = jo.getJSONObject("sprites");
+                Log.d("yahou1", String.valueOf(spritesurl.length()));
                 Iterator<?> keys = spritesurl.keys();
-                while (keys.hasNext()){
+                int a=0;
+                while (keys.hasNext() && a==0){
                     String key = (String) keys.next();
                     if (spritesurl.getString(key) != "null")
                     {
                         imageSafe = new URL(spritesurl.getString(key));
                         if(rand.nextBoolean()){
+                            Log.d("yahou1.5", key);
 
+                            //Log.d("yahou2", spritesurl.getString(key));
+                            a=1;
+                            Log.d("yahou3", "skdf");
 
                             image = new URL(spritesurl.getString(key));
 
@@ -91,31 +98,42 @@ public class GetImagePokeService extends IntentService {
                         image = imageSafe;
                     }
                 }
+                Log.d("while qui merde","failed");
+
                 if(image==null)
                 {
                     downloaded = false;
+                    Log.d("downloading12","failed");
                 }
                 else{
-                HttpURLConnection conn = (HttpURLConnection) image.openConnection();
-                conn.setRequestMethod("GET");
-                conn.connect();
-                if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
-                    //copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.png"));
-                    File file = new File(getCacheDir(), "pokeImage.png");
+                    Log.d("poiuyt","cxopy");
 
-                    copyInputStreamToFile(conn.getInputStream(), file);
+                    HttpURLConnection conn = (HttpURLConnection) image.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.connect();
+                    if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
+                        //copyInputStreamToFile(con.getInputStream(), new File(getCacheDir(), "pokeImage.png"));
+                        Log.d("poiuyt","cxopy");
 
-                    downloaded = true;
+                        File file = new File(getCacheDir(),  paramPoke+".png");
+                        Log.d("poiuyt1","cxopy");
+                        copyInputStreamToFile(conn.getInputStream(), file);
+
+                        Log.d("sqdqsdsd", "copyseems tospikhjfik");
+                        downloaded = true;
 
 
-                }
+                    }
 
-            }}
+                }}
             else{
                 downloaded = false;
+                Log.d("downloading","failed");
 
             }
-
+            //Intent broadcastedIntent=new Intent(Questions.POKE_IMAGE_UPADTE);
+            //broadcastedIntent.putExtra("VALUE", downloaded);
+            //LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
 
         }
         catch(MalformedURLException e){
@@ -124,21 +142,21 @@ public class GetImagePokeService extends IntentService {
 
         }
         catch (IOException e){
+            Log.d("laoucamarchepas", "ajh");
             e.printStackTrace();
         }
         catch (JSONException e) {
+            Log.d("laoucamarchepas", "ajh");
+
             e.printStackTrace();
         }
-        Intent broadcastedIntent = new Intent(Questions.POKE_IMAGE_UPADTE);
-        broadcastedIntent.putExtra("VALUE", downloaded);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastedIntent);
 
     }
 
     private void copyInputStreamToFile(InputStream is, File file){
         try{
             OutputStream out = new FileOutputStream(file);
-            byte[] bit = new byte [1024*4];
+            byte[] bit = new byte [1024*2];
             int len;
             while ((len=is.read(bit))>0){
                 out.write(bit,0,len);

@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -24,7 +26,7 @@ import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class Toolbox {
+public class Toolbox  {
     public static double ScHgt(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics display = context.getResources().getDisplayMetrics();
@@ -33,10 +35,10 @@ public class Toolbox {
         return height;
     }
 
-    public static String getRandomElementName(JSONArray ja)
+    public static String getRandomElementName(JSONArray ja, Context context)
     {
         Random rand = new Random();
-        String name = null;
+        String name = context.getString(R.string.placeholder);
         try {
             name = ja.getJSONObject(rand.nextInt()%ja.length()).getString("name");
         } catch (JSONException e) {
@@ -74,7 +76,6 @@ public class Toolbox {
         try {
             InputStream is = new FileInputStream(context.getCacheDir() + "/" + string);
             byte[] buffer = new byte[is.available()];
-            Log.d("hey", String.valueOf(is.available()));
             is.read(buffer);
             is.close();
             JSONObject ja = new JSONObject(new String(buffer, "UTF-8"));
@@ -103,29 +104,7 @@ public class Toolbox {
     }
 
 
-    //Code taken from https://stackoverflow.com/questions/8326852/how-to-delete-cache-folder-of-app
-    protected void destroyCache(Context context) {
 
-        try {
-            trimCache(context);
-            // Toast.makeText(this,"onDestroy " ,Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void trimCache(Context context) {
-        try {
-            File dir = context.getCacheDir();
-            if (dir != null && dir.isDirectory()) {
-                deleteDir(dir);
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
 
     public static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
@@ -147,13 +126,14 @@ public class Toolbox {
 
         Intent intent = new Intent(context, BiersList.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_arrow_down)
-                .setContentTitle("le DL est finit")
-                .setContentText("show downloaded list")
+                .setContentTitle(context.getString(R.string.downloadended))
+                .setContentText(context.getString(R.string.showdownloadedlist))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);

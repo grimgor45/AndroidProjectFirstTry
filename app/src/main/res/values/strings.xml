@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Quiz</string>
-
-    <string name="Introduction">Here is a small intro for the app</string>
-
-    <string name="ButtonSecondAct">SecondAct</string>
-    <string name="Problem">NOTWORKING</string>
+    <string name="app_name">The Pokebeer Quiz</string>
+    <string name="Introduction">The ultimate test to your knowledge !</string>
+    <string name="ButtonSecondAct">PLAY !</string>
+    <string name="Problem">Please load</string>
     <string name="ButtonBiersList">BiersList</string>
-
-
+    <string name="pokemon">Pokemons</string>
+    <string name="beers">Beers</string>
+    <string name="PickTheme">Pick your quiz's theme</string>
+    <string name="PickTheme2"></string>
+    <string name="Score">Score :</string>
+    <string name="Question">Question :</string>
+    <string name="Load">Load</string>
+    <string name="Quit">Quit</string>
+    <string name = "Downloadsuccess">Download successfull</string>
+    <string name = "DownloadFailed">Download failed please check internet connection</string>
+    <string name = "Pokemon">Pokemon</string>
+    <string name = "Beer">Pokemon</string>
+    <string name = "stopquizz">Close quizz ?</string>
+    <string name ="ok">Ok</string>
+    <string name = "no">Cancel</string>
+    <string name = "correctanswer">Correct answer</string>
+    <string name = "correctanswerwas">Wrong : correct answer was </string>
+    <string name = "beerdescription">Beer description : </string>
+    <string name = "placeholder">PlaceHolder</string>
+    <string name ="downloadended">Download ended</string>
+    <string name = "showdownloadedlist">Show list of </string>
+    <string name = "Pokelist">Show list of </string>
+    <string name = "Beerlist">Show list of </string>
 </resources>

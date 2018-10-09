@@ -29,10 +29,12 @@ public class PokeList extends AppCompatActivity {
 
     public static final String POKE_UPDATE= "projetmobile.esiea.quiz.POKE_UPDATE";
 
-    private String correctDownloadToast = "Correctly downloaded";
-    private String incorrectDownloadToast = "Download Failed please enable wifi";
+    private String correctDownloadToast;
+    private String incorrectDownloadToast;
     private int toastDuration = android.widget.Toast.LENGTH_SHORT;
     Intent mainMenu = null;
+    Toast toast ;
+    boolean show;
 
 
     public class PokeUpdate extends BroadcastReceiver {
@@ -42,16 +44,14 @@ public class PokeList extends AppCompatActivity {
             boolean downloaded = intent.getBooleanExtra("VALUE", false);
             if (downloaded) {
                 ((PokeAdapter) rv.getAdapter()).setNewPoke(Toolbox.getJSONArrayFromFilePoke(context, JSONARRAY_NAME));
-                Toast toast = Toast.makeText(context, correctDownloadToast, toastDuration);
-                toast.show();
-                Log.d("Download", "finished");
 
-                Toolbox.createShowNotificationDownload(getApplicationContext());
-            }
-            else{
-                Toast toast = Toast.makeText(context, incorrectDownloadToast, toastDuration);
+                Log.d("Download", "finished");
+                }
+            else{if (show){
                 toast.show();
-                Log.d("Download", "failed");
+                show = false;
+            }
+             Log.d("Download", "failed");
 
             }
         }
@@ -60,8 +60,7 @@ public class PokeList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menumain, menu);
+        getMenuInflater().inflate(R.menu.menumainact, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -72,16 +71,6 @@ public class PokeList extends AppCompatActivity {
             case R.id.action_return:
                 startActivity(mainMenu);
                 return true;
-            case R.id.action_language:
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-                Locale locale = new Locale(pref.getString("lang_code","en"));
-                Locale.setDefault(locale);
-                Configuration conf = getBaseContext().getResources().getConfiguration();
-                conf.locale= locale;
-                getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
-
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -90,16 +79,24 @@ public class PokeList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("estcequecamarcheqsdqsd1", "surementckhqgsdkujhiqsdjhk;gv");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poke_list);
 
+
+
+        correctDownloadToast = getString(R.string.Downloadsuccess);
+        incorrectDownloadToast = getString(R.string.DownloadFailed);
+        toast = Toast.makeText(this, incorrectDownloadToast, toastDuration);
+
         mainMenu = new Intent(this, MainActivity.class);
+        Log.d("estcequecamarcheqsdqsd1", "surementckhqgsdkujhiqsdjhk;gv");
 
         GetPokeService.startActionGetAllPok(PokeList.this);
 
         rv = findViewById(R.id.rv_poke);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.setAdapter(new PokeAdapter(Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME)));
+        rv.setAdapter(new PokeAdapter(Toolbox.getJSONArrayFromFilePoke(this, JSONARRAY_NAME), getBaseContext()));
 
         IntentFilter intentFilter = new IntentFilter(POKE_UPDATE);
         LocalBroadcastManager.getInstance(this).registerReceiver(new PokeUpdate(),intentFilter);

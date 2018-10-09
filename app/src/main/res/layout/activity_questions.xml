@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Score_text"
         android:textColor="@color/HeavyRed"
-        android:text="@string/Problem" />
+        android:text="0" />
     <TextView
         android:id="@+id/Question"
         android:layout_width="wrap_content"
@@ -33,12 +33,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Question"
         android:layout_alignParentRight="true"
-        android:text="@string/Problem"/>
+        android:text="0"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_below="@+id/ActualScore"
         android:id="@+id/ScrollViewDescriptionBeer">
 
@@ -58,6 +59,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/QuizzQuestionText"
                 android:id="@+id/image_view_question"/>
         </RelativeLayout>
@@ -66,38 +68,41 @@
 
     <Button
         android:id="@+id/Answer1"
-        android:layout_width="300dp"
+        android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_below="@+id/ScrollViewDescriptionBeer"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
         android:background="@color/Red"
         android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer2"
-        android:layout_width="300dp"
+        android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
         android:background="@color/Red"
-        android:layout_below="@+id/Answer1"
+        android:layout_below="@+id/ScrollViewDescriptionBeer"
         android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer3"
-        android:layout_width="300dp"
+        android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_below="@+id/Answer2"
         android:background="@color/Red"
         android:text="@string/Problem"/>
     <Button
         android:id="@+id/Answer4"
-        android:layout_width="300dp"
+        android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
         android:background="@color/Red"
-        android:layout_below="@+id/Answer3"
+        android:layout_below="@+id/Answer2"
         android:text="@string/Problem"/>
 
     <Button
