@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class GetImagePokService extends IntentService {
 
-    private static final String ACTION_GET_IMAGE_POKE = "projetmobile.esiea.quiz.action.FOO";
+    private static final String ACTION_GET_IMAGE_POKE_1 = "projetmobile.esiea.quiz.action.FOO";
     private static final String paramName = "pokeName";
 
     public GetImagePokService() {
@@ -33,10 +33,10 @@ public class GetImagePokService extends IntentService {
     }
 
 
-    public static void startActionGetImagePoke(Context context, String pokeName) {
+    public static void startActionGetImagePok(Context context, String pokeName) {
         Log.d("estcequecamarche", "123300");
-        Intent intent = new Intent(context, GetImagePokeService.class);
-        intent.setAction(ACTION_GET_IMAGE_POKE);
+        Intent intent = new Intent(context, GetImagePokService.class);
+        intent.setAction(ACTION_GET_IMAGE_POKE_1);
         intent.putExtra(paramName, pokeName);
 
         context.startService(intent);
@@ -48,7 +48,7 @@ public class GetImagePokService extends IntentService {
 
         if (intent != null) {
             final String action = intent.getAction();
-            if (ACTION_GET_IMAGE_POKE.equals(action)) {
+            if (ACTION_GET_IMAGE_POKE_1.equals(action)) {
                 final String param1 = intent.getStringExtra(paramName);
 
                 handleActionFoo(param1);
